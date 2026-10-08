@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vibe Shop Class: build real things with AI</title>
+    <meta name="description" content="Websites, apps, stores, books and systems. You bring the idea, Claude does the heavy lifting. Short, plain-word lessons from idea to done." />
+    <meta name="theme-color" content="#071a1f" />
+    <link rel="icon" type="image/png" href="vsc-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vibeshopclass.com/" />
+    <meta property="og:title" content="Vibe Shop Class: build real things with AI" />
+    <meta property="og:description" content="Websites, apps, stores, books and systems. You bring the idea, Claude does the heavy lifting. Every lesson is the shortest path from idea to done." />
+    <meta property="og:image" content="https://vibeshopclass.com/thumb_ep1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vibe Shop Class: build real things with AI" />
+    <meta name="twitter:description" content="Websites, apps, stores, books and systems, built with Claude. No code required." />
+    <meta name="twitter:image" content="https://vibeshopclass.com/thumb_ep1.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      /* VSC brand: dark only. The library's tokens are re-pointed at the brand palette. */
+      :root, :root[data-theme="light"], :root[data-theme="dark"] {
+        color-scheme: dark;
+        --x-bg: #071a1f;
+        --x-panel: #0c252b;
+        --x-teal: #2fb3a8;
+        --x-teal-bright: #3ad1c5;
+        --x-peach: #f4906b;
+        --x-peach-light: #ffb38a;
+        --x-muted: #a9c4c6;
+        --x-line: rgb(47 179 168 / 0.22);
+        --x-line-strong: rgb(47 179 168 / 0.45);
+        --x-hand: "Caveat", "Bradley Hand", cursive;
+        --text-primary: #ffffff;
+        --text-secondary: var(--x-muted);
+        --text-tertiary: rgb(169 196 198 / 0.5);
+        --text-primary-on: var(--x-bg);
+        --fill-primary: var(--x-teal);
+        --fill-primary-on: var(--x-bg);
+        --fill-tertiary: var(--x-panel);
+        --stroke-primary: var(--x-line-strong);
+        --stroke-secondary: var(--x-line);
+        --stroke-composer: var(--x-line-strong);
+        --mat-agent: rgb(12 37 43 / 0.86);
+        --hover-wash: rgb(58 209 197 / 0.08);
+        --hark-shadow: 0 12px 40px rgb(0 0 0 / 0.35);
+        --sans: "Poppins", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+        --lh: 1.5;
+      }
+      body { background: var(--x-bg); }
+      .page { padding-top: 0; gap: 0; }
+      .x-wide { font-variant-numeric: tabular-nums; }
+
+      /* header */
+      .x-header {
+        position: sticky; top: 0; z-index: 30;
+        display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        margin-inline: calc(var(--gutter) * -1); padding: 10px var(--gutter);
+        background: rgb(7 26 31 / 0.82);
+        -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+        border-bottom: 1px solid var(--x-line);
+      }
+      .x-header__logo { display: flex; align-items: center; min-height: var(--tap); border-radius: 8px; }
+      .x-header__logo img { height: 40px; width: auto; }
+      .x-header nav { display: flex; align-items: center; gap: 4px; }
+      .x-navlink {
+        display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 12px;
+        font: var(--weight-medium) var(--size-small)/1 var(--sans); color: var(--x-muted); text-decoration: none; border-radius: var(--r-pill);
+      }
+      .x-navlink:hover { color: #fff; }
+      @media (max-width: 520px) {
+        .x-header__logo img { height: 30px; }
+        .x-navlink { padding: 0 8px; font-size: var(--size-meta); }
+        .x-header .x-btn { padding-inline: 14px; }
+        .x-long { display: none; }
+      }
+      @media (min-width: 521px) { .x-short-label { display: none; } }
+
+      /* buttons */
+      .x-btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        min-height: var(--tap); padding: 0 22px; border-radius: var(--r-pill);
+        font: var(--weight-bold) var(--size-body)/1 var(--sans); text-decoration: none; cursor: pointer;
+        background: var(--x-peach); color: var(--x-bg); border: 1.5px solid var(--x-peach);
+        transition: background var(--dur-quick) ease, transform var(--dur-quick) var(--ease-out);
+      }
+      .x-btn:hover { background: var(--x-peach-light); border-color: var(--x-peach-light); }
+      .x-btn:active { transform: translateY(1px); }
+      .x-btn--ghost { background: transparent; color: #fff; border-color: var(--x-line-strong); }
+      .x-btn--ghost:hover { background: var(--hover-wash); border-color: var(--x-teal); }
+      .x-btn--sm { font-size: var(--size-meta); padding: 0 16px; }
+      .x-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+      .x-btn svg { flex: none; }
+
+      /* type */
+      .x-display {
+        font: 800 clamp(54px, 14.5vw, 112px)/0.92 var(--sans); text-transform: uppercase; letter-spacing: -0.015em;
+      }
+      .x-h2 { font: 800 clamp(30px, 5.4vw, 48px)/1.05 var(--sans); text-transform: uppercase; letter-spacing: -0.005em; text-wrap: balance; }
+      .x-teal { color: var(--x-teal-bright); }
+      .x-hand { font: 700 clamp(30px, 5vw, 46px)/1 var(--x-hand); color: var(--x-peach-light); }
+      .x-hand--sm { font-size: 26px; }
+      .x-eyebrow {
+        display: inline-flex; align-items: center; gap: 10px;
+        font: var(--weight-bold) var(--size-meta)/1.2 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--x-teal-bright);
+      }
+      .x-eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--x-teal); border-radius: 2px; }
+      .x-lede { font-size: clamp(16px, 1.8vw, 19px); color: var(--x-muted); max-width: 52ch; }
+
+      /* sections: an editorial rhythm with generous air */
+      .main { gap: 0; }
+      .x-sec { padding-block: 96px; scroll-margin-top: 64px; min-width: 0; }
+      @media (min-width: 900px) { .x-sec { padding-block: 140px; } }
+      .x-sec__head { display: grid; gap: 16px; margin-bottom: clamp(48px, 6vw, 64px); max-width: 760px; }
+      .x-divider { display: block; width: 100%; height: 24px; color: var(--x-teal); }
+
+      /* editorial writing */
+      .x-essay { display: grid; gap: 20px; max-width: 620px; margin-bottom: clamp(72px, 9vw, 104px); }
+      .x-essay__title { font: 700 clamp(26px, 4vw, 36px)/1.15 var(--sans); letter-spacing: -0.01em; text-wrap: balance; }
+      .x-prose { display: grid; gap: 1.1em; max-width: 620px; }
+      .x-prose p, .x-essay p { font: var(--weight-regular) clamp(17px, 1.6vw, 18px)/1.65 var(--sans); color: #d3e3e4; text-wrap: pretty; }
+      .x-interlude { display: grid; gap: 14px; max-width: 620px; padding-left: 24px; border-left: 2px solid var(--x-peach); }
+      .x-interlude h3 { font: 700 clamp(30px, 4vw, 38px)/1 var(--x-hand); color: var(--x-peach-light); }
+
+      /* gentle fade-up as blocks enter view; only switched on by JS, never under reduced motion */
+      .x-fx .x-rv { opacity: 0; transform: translateY(12px); transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out); }
+      .x-fx .x-rv.is-in { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) { .x-fx .x-rv { opacity: 1; transform: none; transition: none; } }
+
+      /* hero */
+      .x-hero {
+        position: relative; isolation: isolate; display: flex; flex-direction: column; justify-content: center;
+        min-height: 92vh; min-height: 92svh; padding-block: clamp(72px, 14vw, 128px) 112px;
+      }
+      @media (min-width: 900px) { .x-hero { padding-bottom: 152px; } }
+      .x-hero__grid { display: grid; gap: 80px; align-items: center; }
+      @media (min-width: 900px) { .x-hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 88px; } }
+      .x-hero__copy { display: grid; gap: 0; justify-items: start; }
+      .x-hero__copy > .x-eyebrow { margin-bottom: clamp(28px, 3.4vw, 36px); }
+      .x-hero__copy > h1 { margin-bottom: clamp(16px, 2vw, 22px); }
+      .x-hero__copy .x-hand { font-size: clamp(40px, 6vw, 60px); margin-bottom: clamp(32px, 4vw, 44px); }
+      .x-hero__copy > .x-lede { margin-bottom: clamp(40px, 4.6vw, 52px); }
+      .x-hero__copy > .x-btns { margin-bottom: clamp(52px, 6vw, 64px); }
+      .x-hero__media { padding-block: 8px; }
+      @media (min-width: 900px) { .x-hero__media { padding: 24px 0 24px 8px; } }
+      /* the seal: huge, faint, slowly turning, cropped off the left edge */
+      .x-hero-seal { position: absolute; inset: 0 calc(var(--gutter) * -1); z-index: -1; overflow: hidden; pointer-events: none; }
+      .x-hero-seal__art { --w: clamp(500px, 72vw, 860px); position: absolute; width: var(--w); aspect-ratio: 1; left: calc(var(--w) * -0.32); top: clamp(-40px, -2vw, 0px); }
+      .x-hero-seal__art img { width: 100%; height: auto; opacity: 0.07; animation: x-turn 90s linear infinite; }
+      .x-hero-seal__art svg { position: absolute; left: 50%; top: 0; width: calc(var(--w) * 1.6); height: var(--w); opacity: 0.5; }
+      @keyframes x-turn { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .x-hero-seal__art img { animation: none; } }
+      .x-bubbles { position: absolute; inset: -40px calc(var(--gutter) * -1) 0; z-index: -1; overflow: hidden; pointer-events: none; }
+      .x-bubbles span { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.32; animation: x-drift 26s ease-in-out infinite alternate; }
+      .x-bubbles span:nth-child(1) { width: 320px; height: 320px; left: -60px; top: 40px; background: var(--x-teal); }
+      .x-bubbles span:nth-child(2) { width: 240px; height: 240px; right: 6%; top: 10px; background: var(--x-peach); opacity: 0.22; animation-duration: 32s; animation-delay: -8s; }
+      .x-bubbles span:nth-child(3) { width: 200px; height: 200px; left: 45%; bottom: 0; background: var(--x-teal-bright); opacity: 0.18; animation-duration: 38s; animation-delay: -14s; }
+      @keyframes x-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(40px, -30px) scale(1.12); } }
+      @media (prefers-reduced-motion: reduce) { .x-bubbles span { animation: none; } }
+      .x-hero__media { position: relative; }
+      .x-note {
+        display: flex; align-items: flex-end; gap: 6px; margin: 0 0 6px 8px;
+        font: 700 30px/1 var(--x-hand); color: var(--x-peach-light);
+      }
+      .x-note svg { color: var(--x-peach); transform: translateY(8px); }
+      .x-proof {
+        display: flex; flex-wrap: wrap; gap: 8px 0; margin-top: clamp(48px, 6vw, 72px); padding-top: 20px;
+        border-top: 1px solid var(--x-line);
+        font: var(--weight-medium) var(--size-small)/1.3 var(--sans); color: var(--x-muted);
+      }
+      .x-proof span { display: inline-flex; align-items: center; }
+      .x-proof span + span::before { content: ""; width: 5px; height: 5px; margin: 0 14px; border-radius: 50%; border: 1.5px solid var(--x-peach); }
+      .x-proof b { color: #fff; font-weight: var(--weight-bold); margin-right: 4px; }
+
+      /* video slot */
+      .x-video {
+        position: relative; aspect-ratio: 16 / 9; border-radius: var(--r-l); overflow: hidden;
+        background: var(--x-panel); border: 1px solid var(--x-line-strong); box-shadow: var(--hark-shadow);
+      }
+      .x-video > img, .x-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+      .x-video__soon {
+        position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
+        display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+        padding: 7px 14px 7px 8px; border-radius: var(--r-pill);
+        background: rgb(7 26 31 / 0.72); border: 1px solid rgb(255 255 255 / 0.16);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        font: var(--weight-medium) var(--size-caption)/1 var(--sans); color: #fff;
+      }
+      .x-video__soon i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgb(255 255 255 / 0.14); }
+      .x-play {
+        position: absolute; inset: 0; display: grid; place-items: center; width: 100%;
+        border: 0; padding: 0; background: linear-gradient(to top, rgb(7 26 31 / 0.45), transparent 60%); cursor: pointer; color: var(--x-bg);
+      }
+      .x-play i {
+        display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%;
+        background: var(--x-peach); box-shadow: 0 0 0 8px rgb(244 144 107 / 0.25), var(--hark-shadow);
+        transition: transform var(--dur-quick) var(--ease-out), background var(--dur-quick) ease;
+      }
+      .x-play:hover i, .x-play:focus-visible i { transform: scale(1.06); background: var(--x-peach-light); }
+      .x-play:focus-visible { outline: 3px solid var(--x-teal-bright); outline-offset: -3px; border-radius: var(--r-l); }
+      .x-ph { position: absolute; inset: 0; display: grid; align-content: end; gap: 4px; padding: clamp(18px, 4vw, 28px); padding-bottom: 56px; background: radial-gradient(120% 90% at 85% 10%, rgb(47 179 168 / 0.22), transparent 60%), var(--x-panel); }
+      .x-ph > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .x-ph p { position: relative; }
+      .x-ph__num { font: 800 clamp(26px, 5vw, 40px)/1 var(--sans); text-transform: uppercase; color: var(--x-teal-bright); }
+      .x-ph__title { font: 700 clamp(16px, 2.4vw, 22px)/1.2 var(--sans); max-width: 18ch; }
+
+      /* vibe coding: open editorial blocks */
+      .x-flow { display: grid; gap: 44px; list-style: none; margin: 0; padding: 0; counter-reset: flow; }
+      @media (min-width: 860px) { .x-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; } }
+      .x-flow > li { display: grid; gap: 12px; align-content: start; }
+      .x-flow > li::before {
+        counter-increment: flow; content: "0" counter(flow);
+        font: var(--weight-bold) var(--size-meta)/1.2 var(--sans); letter-spacing: 0.12em; color: var(--x-teal-bright); font-variant-numeric: tabular-nums;
+      }
+      .x-flow h3 { font: 700 clamp(20px, 2.2vw, 23px)/1.25 var(--sans); }
+      .x-flow p { color: var(--x-muted); font-size: var(--size-prose); line-height: 1.6; }
+      .x-tip { display: grid; gap: 10px; margin-top: clamp(56px, 7vw, 80px); max-width: 620px; padding-left: 24px; border-left: 2px solid var(--x-peach); }
+      .x-tip__hand { font: 700 30px/1.05 var(--x-hand); color: var(--x-peach-light); }
+      .x-tip p:last-child { color: var(--x-muted); font-size: var(--size-prose); line-height: 1.6; }
+
+      /* shorts row */
+      .x-shorts { margin-top: clamp(72px, 9vw, 104px); }
+      .x-shorts__title { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font: 700 var(--size-heading)/1.2 var(--sans); }
+      .x-shorts__title::before { content: ""; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--x-peach); flex: none; }
+      .x-shorts__row {
+        display: flex; gap: 14px; list-style: none; margin: 0 calc(var(--gutter) * -1); padding: 4px var(--gutter) 14px;
+        overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: thin; scrollbar-color: var(--x-line-strong) transparent;
+      }
+      .x-short {
+        position: relative; flex: none; width: 180px; aspect-ratio: 9 / 16; scroll-snap-align: start;
+        border-radius: var(--r-m); overflow: hidden; background: var(--x-panel); border: 1px solid var(--x-line-strong);
+      }
+      @media (min-width: 700px) { .x-short { width: 210px; } }
+      .x-short iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .x-short__ph { position: absolute; inset: 0; display: grid; align-content: end; gap: 6px; padding: 16px; background: radial-gradient(100% 60% at 20% 0%, rgb(244 144 107 / 0.16), transparent 70%), var(--x-panel); }
+      .x-short__ph > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .x-short__ph p { position: relative; }
+      .x-short__tag { font: var(--weight-bold) var(--size-caption)/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--x-teal-bright); }
+      .x-short__title { font: 700 var(--size-prose)/1.25 var(--sans); }
+      .x-short__soon { font: var(--weight-medium) var(--size-caption)/1.2 var(--sans); color: var(--x-muted); }
+      .x-short .x-play i { width: 56px; height: 56px; }
+      .x-short .x-play:focus-visible { border-radius: var(--r-m); }
+
+      /* status, duration, kit */
+      .x-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+      .x-status {
+        display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px 4px 9px; border-radius: var(--r-pill);
+        font: var(--weight-bold) var(--size-caption)/1.2 var(--sans); letter-spacing: 0.04em; text-transform: uppercase;
+      }
+      .x-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; flex: none; }
+      .x-status--ready { background: #10383a; color: var(--x-teal-bright); }
+      .x-status--ready::before { background: var(--x-teal-bright); }
+      .x-status--prod { border: 1.5px solid var(--x-peach); color: var(--x-peach-light); padding-block: 2.5px; }
+      .x-status--prod::before { border: 1.5px solid var(--x-peach); }
+      .x-time { font: var(--weight-medium) var(--size-caption)/1.2 var(--sans); color: var(--x-muted); padding: 4px 10px; border-radius: var(--r-pill); border: 1px solid var(--x-line); font-variant-numeric: tabular-nums; }
+      .x-price {
+        display: inline-block; padding: 3px 10px; border-radius: var(--r-pill); white-space: nowrap;
+        background: #33261f; color: var(--x-peach-light); border: 1px solid #7a4a39;
+        font: var(--weight-bold) var(--size-caption)/1.3 var(--sans); font-variant-numeric: tabular-nums;
+      }
+      /* kit: one inline line of peach price pills */
+      .x-kitline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; list-style: none; margin: 0; padding: 0; font-size: var(--size-small); color: #fff; }
+      .x-kitline::before { content: "Your kit"; font: var(--weight-bold) var(--size-caption)/1.2 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--x-muted); }
+      .x-kitline li { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; max-width: 100%; }
+      .x-kitline small { color: var(--x-muted); font-size: var(--size-meta); }
+      .x-kitline .x-price { padding-block: 2px; white-space: normal; }
+
+      /* featured lesson 1: open, only the video is framed */
+      .x-feature { display: grid; gap: clamp(36px, 4vw, 56px); }
+      @media (min-width: 960px) { .x-feature { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: center; } }
+      .x-feature__body { display: grid; gap: 28px; align-content: start; }
+      .x-feature__body > p { color: var(--x-muted); font-size: var(--size-prose); line-height: 1.65; }
+      .x-next { font-size: var(--size-small); color: var(--x-muted); }
+
+      /* lessons: open editorial blocks, alternating on desktop */
+      .x-lessons { display: grid; gap: clamp(88px, 11vw, 128px); }
+      .x-lesson { display: grid; gap: 28px; scroll-margin-top: calc(var(--x-head-h, 65px) + var(--x-bar-h, 64px) + 28px); min-width: 0; }
+      .x-lesson > * { min-width: 0; }
+      .x-lesson__head { display: grid; gap: 12px; justify-items: start; }
+      .x-lesson__num { display: inline-flex; align-items: center; gap: 12px; font: var(--weight-bold) var(--size-meta)/1.2 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--x-teal-bright); }
+      /* the seal's outer circle, echoed as a ring around each lesson number */
+      .x-ring {
+        order: -1; display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 50%;
+        border: 2px solid var(--x-teal); box-shadow: 0 0 0 4px var(--x-bg), 0 0 0 5px var(--x-line-strong);
+        font: 700 var(--size-small)/1 var(--sans); letter-spacing: 0; color: #fff; font-variant-numeric: tabular-nums;
+      }
+
+      /* lesson switcher: sticks under the header while the lessons are in view */
+      .x-lessonbar-anchor { scroll-margin-top: var(--x-head-h, 65px); }
+      .x-lessonbar {
+        position: sticky; top: calc(var(--x-head-h, 65px) - 1px); z-index: 20;
+        margin: 0 calc(var(--gutter) * -1) clamp(48px, 6vw, 64px); padding-block: 10px;
+        background: rgb(7 26 31 / 0.82);
+        -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+        border-bottom: 1px solid var(--x-line);
+      }
+      .x-lessonbar__track {
+        display: flex; gap: 8px; list-style: none; margin: 0; padding: 0 var(--gutter);
+        overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+      }
+      .x-lessonbar__track::-webkit-scrollbar { display: none; }
+      .x-lessonbar__track li { flex: none; scroll-snap-align: start; }
+      @media (max-width: 899px) {
+        .x-lessonbar__track { -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent); mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent); }
+      }
+      .x-tab {
+        display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 16px; border-radius: var(--r-pill);
+        border: 1px solid var(--x-line); color: var(--x-muted); text-decoration: none; white-space: nowrap;
+        font: var(--weight-medium) var(--size-small)/1 var(--sans);
+        transition: background var(--dur-quick) ease, color var(--dur-quick) ease, border-color var(--dur-quick) ease;
+      }
+      .x-tab b { font-weight: 700; color: var(--x-teal-bright); font-variant-numeric: tabular-nums; }
+      .x-tab::before { content: ""; width: 10px; height: 10px; flex: none; border-radius: 50%; border: 1.5px solid var(--x-line-strong); box-sizing: border-box; }
+      .x-tab:hover { color: #fff; border-color: var(--x-line-strong); }
+      .x-tab:focus-visible { outline: 3px solid var(--x-teal-bright); outline-offset: 2px; border-radius: var(--r-pill); }
+      .x-tab[aria-current="true"] { background: var(--x-teal); border-color: var(--x-teal); color: var(--x-bg); font-weight: 600; }
+      .x-tab[aria-current="true"] b { color: var(--x-bg); }
+      .x-tab[aria-current="true"]::before { border-color: var(--x-bg); background: radial-gradient(circle, var(--x-bg) 0 1.6px, transparent 2.2px); }
+      .x-lesson__head h3 { font: 700 clamp(22px, 2.6vw, 28px)/1.2 var(--sans); text-wrap: balance; }
+      .x-lesson__text { display: grid; gap: 20px; align-content: start; }
+      .x-lesson__text > p { color: var(--x-muted); font-size: var(--size-prose); line-height: 1.65; }
+      @media (min-width: 860px) {
+        .x-lesson {
+          grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: 56px; row-gap: 0;
+          grid-template-rows: 1fr auto auto 1fr;
+          grid-template-areas: "video ." "video head" "video text" "video .";
+        }
+        .x-lesson--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); grid-template-areas: ". video" "head video" "text video" ". video"; }
+        .x-lesson > .x-video { grid-area: video; align-self: center; }
+        .x-lesson__head { grid-area: head; }
+        .x-lesson__text { grid-area: text; margin-top: 20px; }
+      }
+
+      /* lesson plan checklist */
+      .x-plan-wrap { display: grid; gap: 48px; }
+      @media (min-width: 900px) { .x-plan-wrap { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; gap: 72px; } }
+      .x-plan { list-style: none; margin: 0; padding: 0; }
+      .x-plan li { display: grid; grid-template-columns: 30px 28px minmax(0, 1fr); align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px dashed var(--x-line); }
+      .x-plan li:last-child { border-bottom: 0; }
+      .x-plan__n { font: 700 var(--size-small)/1 var(--sans); color: var(--x-muted); font-variant-numeric: tabular-nums; }
+      .x-plan__box { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--x-line-strong); transition: background 300ms ease, border-color 300ms ease; transition-delay: calc(var(--i) * 220ms); }
+      .x-plan__box path { stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset 360ms var(--ease-out); transition-delay: calc(var(--i) * 220ms + 120ms); }
+      .x-plan.is-in .x-plan__box { background: var(--x-teal); border-color: var(--x-teal); }
+      .x-plan.is-in .x-plan__box path { stroke-dashoffset: 0; }
+      .x-plan__t { font-size: var(--size-prose); }
+      .x-plan__t b { font-weight: 700; color: #fff; }
+      .x-plan__t span { color: var(--x-muted); }
+      @media (prefers-reduced-motion: reduce) { .x-plan__box, .x-plan__box path { transition: none; } }
+      .x-margin { position: relative; padding-left: 28px; font: 700 clamp(30px, 4vw, 40px)/1.1 var(--x-hand); color: var(--x-peach-light); max-width: 16ch; }
+      .x-margin::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 2px; background: var(--x-peach); border-radius: 2px; }
+
+      /* closing band */
+      .x-cta { position: relative; isolation: isolate; overflow: hidden; display: grid; gap: 20px; justify-items: start; padding: clamp(32px, 6vw, 64px) clamp(22px, 5vw, 56px); border-radius: var(--r-xl); background: radial-gradient(90% 120% at 100% 0%, rgb(244 144 107 / 0.18), transparent 55%), radial-gradient(80% 100% at 0% 100%, rgb(47 179 168 / 0.22), transparent 60%), var(--x-panel); border: 1px solid var(--x-line-strong); }
+      .x-cta > svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.8; }
+      .x-cta .x-h2 { max-width: 16ch; }
+      .x-cta__small { font: 700 26px/1 var(--x-hand); color: var(--x-peach-light); }
+
+      /* footer */
+      .x-foot { display: grid; gap: 14px; margin-top: clamp(32px, 5vw, 56px); padding-block: 28px 12px; border-top: 1px solid var(--x-line); font-size: var(--size-small); color: var(--x-muted); }
+      .x-foot__brand { display: flex; align-items: center; gap: 12px; color: #fff; font-weight: var(--weight-medium); }
+      .x-foot__brand img { width: 56px; height: auto; transition: transform 500ms var(--ease-out); }
+      .x-foot__brand img:hover { transform: rotate(-10deg); }
+      @media (prefers-reduced-motion: reduce) { .x-foot__brand img, .x-foot__brand img:hover { transition: none; transform: none; } }
+      /* divider that ends in a small seal */
+      .x-divider-seal { position: relative; display: block; height: 24px; }
+      .x-divider-seal img { position: absolute; left: 50%; top: -7px; width: 28px; height: auto; transform: translateX(-50%); }
+      .x-foot a { color: var(--x-teal-bright); text-underline-offset: 3px; display: inline-flex; align-items: center; min-height: var(--tap); min-width: var(--tap); margin-block: -12px; vertical-align: middle; }
+      .x-foot p { max-width: 72ch; }
+      .x-foot .x-foot__disclaimer { font-size: max(14px, var(--size-small)); line-height: 1.6; color: #e6f1f2; }
+
+      /* email signup */
+      .x-signup { display: grid; gap: 10px; width: 100%; max-width: 540px; }
+      .x-signup__form { display: grid; gap: 10px; }
+      .x-signup__head { font: 700 var(--size-prose)/1.3 var(--sans); color: #fff; }
+      .x-cta .x-signup { max-width: 620px; margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--x-line); }
+      .x-cta .x-signup__head { font: 700 clamp(20px, 2.6vw, 24px)/1.2 var(--sans); }
+      .x-signup__sub { margin-top: -4px; font-size: var(--size-small); color: var(--x-muted); }
+      .x-signup__row { display: flex; flex-wrap: wrap; gap: 10px; }
+      .x-signup__input {
+        flex: 999 1 220px; min-width: 0; min-height: 48px; padding: 0 18px; border-radius: var(--r-pill);
+        border: 1.5px solid var(--x-line-strong); background: rgb(7 26 31 / 0.6); color: #fff;
+        font: var(--weight-medium) 16px/1.2 var(--sans);
+        transition: border-color var(--dur-quick) ease;
+      }
+      .x-signup__input::placeholder { color: var(--x-muted); opacity: 0.8; }
+      .x-signup__input:hover { border-color: var(--x-teal); }
+      .x-signup__input:focus-visible { outline: 3px solid var(--x-teal-bright); outline-offset: 2px; border-color: var(--x-teal); }
+      .x-signup__input[aria-invalid="true"] { border-color: var(--x-peach); }
+      .x-signup .x-btn { flex: 1 0 auto; min-height: 48px; }
+      .x-signup .x-btn:focus-visible { outline: 3px solid var(--x-teal-bright); outline-offset: 2px; }
+      .x-signup .x-btn[disabled] { opacity: 0.7; cursor: progress; }
+      .x-signup__status { font: var(--weight-medium) var(--size-small)/1.4 var(--sans); color: var(--x-peach-light); }
+      .x-signup__status:focus { outline: none; }
+      .x-signup__status.is-done { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+      .x-signup__done { font: 700 clamp(26px, 3.4vw, 32px)/1.1 var(--x-hand); color: var(--x-peach-light); }
+      .x-signup__go { display: inline-flex; align-items: center; min-height: var(--tap); font: var(--weight-bold) var(--size-small)/1 var(--sans); color: var(--x-teal-bright); text-underline-offset: 3px; }
+      .x-signup__seal { width: 34px; height: auto; flex: none; }
+      .x-signup__seal[hidden] { display: none; }
+      .is-done .x-signup__seal { animation: x-spin 1.4s var(--ease-out) both; }
+      @keyframes x-spin { from { transform: rotate(-360deg) scale(0.8); opacity: 0; } to { transform: none; opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) { .is-done .x-signup__seal { animation: none; } }
+      .x-hp { display: none; }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="x-circ-wide" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke-width="1.5" stroke-linecap="round">
+            <path d="M-10 40 H120 l20 20 H230 l14 -14 H330" style="stroke:var(--x-teal)" opacity=".55" />
+            <path d="M-10 52 H112 l20 20 H200" style="stroke:var(--x-teal)" opacity=".3" />
+            <path d="M330 120 H260 l-18 18 H180" style="stroke:var(--x-peach)" opacity=".6" />
+            <path d="M260 20 V-10 M290 46 V100 l-16 16" style="stroke:var(--x-teal)" opacity=".4" />
+            <circle cx="200" cy="72" r="4" style="stroke:var(--x-teal)" opacity=".6" />
+            <circle cx="176" cy="138" r="4" style="stroke:var(--x-peach)" opacity=".8" />
+            <circle cx="272" cy="118" r="3.5" style="stroke:var(--x-teal)" opacity=".6" />
+          </g>
+        </symbol>
+        <symbol id="x-circ-tall" viewBox="0 0 180 320" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke-width="1.5" stroke-linecap="round">
+            <path d="M30 -10 V60 l20 20 V140" style="stroke:var(--x-teal)" opacity=".55" />
+            <path d="M42 -10 V54 l20 20 V110" style="stroke:var(--x-teal)" opacity=".3" />
+            <path d="M190 40 H140 l-16 16 V96" style="stroke:var(--x-peach)" opacity=".6" />
+            <path d="M150 -10 V22 H190" style="stroke:var(--x-teal)" opacity=".35" />
+            <circle cx="50" cy="144" r="4" style="stroke:var(--x-teal)" opacity=".6" />
+            <circle cx="62" cy="114" r="3.5" style="stroke:var(--x-teal)" opacity=".5" />
+            <circle cx="124" cy="100" r="4" style="stroke:var(--x-peach)" opacity=".8" />
+          </g>
+        </symbol>
+        <symbol id="x-div" viewBox="0 0 1120 24" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke-width="1" stroke-linecap="round">
+            <path d="M0 12 H500 l6 -6 H550" style="stroke:var(--x-teal)" opacity=".45" />
+            <circle cx="560" cy="6" r="5" stroke-width="1.5" style="stroke:var(--x-teal)" />
+            <path d="M570 6 H614 l6 6 H1120" style="stroke:var(--x-teal)" opacity=".45" />
+          </g>
+        </symbol>
+        <symbol id="x-div-open" viewBox="0 0 1120 24" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke-width="1" stroke-linecap="round">
+            <path d="M0 12 H500 l6 -6 H542" style="stroke:var(--x-teal)" opacity=".45" />
+            <path d="M578 6 H614 l6 6 H1120" style="stroke:var(--x-teal)" opacity=".45" />
+          </g>
+        </symbol>
+        <symbol id="x-play-ico" viewBox="0 0 24 24"><path d="M8 5.5v13a.6.6 0 0 0 .9.5l10.2-6.5a.6.6 0 0 0 0-1L8.9 5a.6.6 0 0 0-.9.5z" fill="currentColor" /></symbol>
+      </defs>
+    </svg>
+
+    <div class="page" id="top">
+      <header class="x-header">
+        <a class="x-header__logo" href="#top" aria-label="Vibe Shop Class, back to top"
+          ><img src="vsc-lockup.png" alt="Vibe Shop Class" width="92" height="40"
+        /></a>
+        <nav aria-label="Main">
+          <a class="x-navlink" href="#lesson-bar">Lessons</a>
+          <a class="x-navlink" href="#how">How it works</a>
+          <a class="x-btn x-btn--sm" href="#lesson-1"><span class="x-long">Start lesson 1</span><span class="x-short-label">Lesson 1</span></a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <!-- HERO -->
+        <section class="x-hero" aria-labelledby="hero-title">
+          <div class="x-bubbles" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="x-hero-seal" aria-hidden="true">
+            <div class="x-hero-seal__art">
+              <img src="vsc-icon.png" alt="" width="192" height="182" />
+              <svg viewBox="0 0 160 100" fill="none" stroke-linecap="round">
+                <g stroke-width="1" vector-effect="non-scaling-stroke">
+                  <path d="M47 24 H60 l7 -7 H104" style="stroke:var(--x-teal)" opacity=".35" vector-effect="non-scaling-stroke" />
+                  <circle cx="105.5" cy="17" r=".9" style="stroke:var(--x-teal)" opacity=".5" vector-effect="non-scaling-stroke" />
+                  <path d="M50 40 H76 l5 -5 H128" style="stroke:var(--x-teal)" opacity=".4" vector-effect="non-scaling-stroke" />
+                  <circle cx="129.5" cy="35" r=".9" style="stroke:var(--x-teal)" opacity=".55" vector-effect="non-scaling-stroke" />
+                  <path d="M50 52 H70 l4 4 H96" style="stroke:var(--x-peach)" opacity=".45" vector-effect="non-scaling-stroke" />
+                  <circle cx="97.5" cy="56" r=".9" style="stroke:var(--x-peach)" opacity=".6" vector-effect="non-scaling-stroke" />
+                  <path d="M49 64 H88 l7 7 H150" style="stroke:var(--x-teal)" opacity=".3" vector-effect="non-scaling-stroke" />
+                  <path d="M45 78 H62 l6 6 H84" style="stroke:var(--x-peach)" opacity=".4" vector-effect="non-scaling-stroke" />
+                  <circle cx="85.5" cy="84" r=".9" style="stroke:var(--x-peach)" opacity=".55" vector-effect="non-scaling-stroke" />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="x-hero__grid">
+            <div class="x-hero__copy">
+              <p class="x-eyebrow">Shop class for the AI era</p>
+              <h1 class="x-display" id="hero-title">Build <span class="x-teal">real</span> things</h1>
+              <p class="x-hand">with Claude</p>
+              <p class="x-lede">
+                Websites, apps, stores, books and systems. You bring the idea, Claude does the heavy lifting. Every
+                lesson is the shortest path from idea to done, explained in plain words.
+              </p>
+              <div class="x-btns">
+                <a class="x-btn" href="#lesson-1">Start with Lesson 1</a>
+                <a class="x-btn x-btn--ghost" href="#lessons">See all lessons</a>
+              </div>
+              <div class="x-signup" data-source="hero">
+                <form class="x-signup__form" novalidate aria-labelledby="su-hero-head">
+                  <p class="x-signup__head" id="su-hero-head">Get each new lesson in your inbox</p>
+                  <div class="x-signup__row">
+                    <input class="x-signup__input" id="su-hero-email" aria-label="Email address" type="email" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required aria-describedby="su-hero-status" />
+                    <button class="x-btn" type="submit">Send me the lessons</button>
+                  </div>
+                  <div class="x-hp" aria-hidden="true"><label for="su-hero-hp">Leave this field empty</label><input id="su-hero-hp" type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+                </form>
+                <p class="x-signup__status" id="su-hero-status" role="status" aria-live="polite"></p>
+                <img class="x-signup__seal" src="vsc-icon.png" alt="" width="34" height="32" hidden />
+              </div>
+            </div>
+            <div class="x-hero__media">
+              <p class="x-note" aria-hidden="true">
+                start here
+                <svg width="46" height="34" viewBox="0 0 46 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6c14-4 30 2 36 22" /><path d="M31 22l7 7 5-9" /></svg>
+              </p>
+              <div class="x-video" data-video="ep1" data-label="Lesson 1: Build a website with Claude">
+                <img src="thumb_ep1.jpg" alt="Lesson 1 thumbnail: Build a website with Claude" width="1280" height="720" fetchpriority="high" />
+                <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+              </div>
+            </div>
+          </div>
+          <p class="x-proof">
+            <span><b>6</b> lessons</span><span><b>8</b> steps each</span><span>no code required</span><span>prices checked Oct 2026</span>
+          </p>
+        </section>
+
+        <svg class="x-divider" aria-hidden="true" focusable="false"><use href="#x-div" /></svg>
+
+        <!-- WHAT VIBE CODING IS -->
+        <section class="x-sec" id="vibe" data-nav="Vibe coding" aria-labelledby="vibe-title">
+          <div class="x-essay">
+            <h2 class="x-essay__title">You don't need to be a coder anymore</h2>
+            <p>
+              For years, building a website or an app meant learning a programming language first, or paying someone
+              who had. That wall is coming down. Today you can describe what you want in plain English, and an AI like
+              Claude writes the code, explains it and fixes it when something breaks.
+            </p>
+            <p>
+              That doesn't make the work trivial. You still decide what to make, who it's for and what good looks
+              like. Vibe Shop Class is about that part: turning your idea into something real, one clear step at a time.
+            </p>
+          </div>
+          <div class="x-sec__head">
+            <p class="x-eyebrow">What vibe coding is</p>
+            <h2 class="x-h2" id="vibe-title">You <span class="x-teal">describe</span>. AI builds.</h2>
+            <p class="x-lede">
+              Vibe coding means you describe what you want in plain words, and AI writes the code. You stay the
+              designer, the decision maker and the owner.
+            </p>
+          </div>
+          <ol class="x-flow">
+            <li>
+              <h3>Describe it</h3>
+              <p>Say what you want like you'd tell a friend. Claude turns it into a plan and then into working code.</p>
+            </li>
+            <li>
+              <h3>Build it in 8 steps</h3>
+              <p>
+                Every lesson is a short checklist that ticks off as you go, with jargon (domain, DNS, registrar)
+                explained the first time it shows up.
+              </p>
+            </li>
+            <li>
+              <h3>Ship it</h3>
+              <p>Real web addresses, real app stores, real storefronts. Every price is shown on screen before you spend a cent.</p>
+            </li>
+          </ol>
+          <aside class="x-tip" aria-label="Tip">
+            <p class="x-tip__hand">Stuck? Screenshot it and ask Claude.</p>
+            <p>
+              Take a screenshot of whatever you're looking at, send it to Claude, and ask what to click next. It
+              walks you right through it.
+            </p>
+          </aside>
+          <div class="x-shorts">
+            <h3 class="x-shorts__title">Quick hits from Lesson 1</h3>
+            <ul class="x-shorts__row">
+              <li class="x-short" data-short="s1" data-label="Short: Name it + grab the domain">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Name it + grab the domain</p><p class="x-short__soon">Short coming soon</p></div>
+              </li>
+              <li class="x-short" data-short="s2" data-label="Short: Design it in plain words">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Design it in plain words</p><p class="x-short__soon">Short coming soon</p></div>
+              </li>
+              <li class="x-short" data-short="s3" data-label="Short: Put it online for free">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Put it online for free</p><p class="x-short__soon">Short coming soon</p></div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="x-divider-seal" aria-hidden="true"><svg class="x-divider" focusable="false"><use href="#x-div-open" /></svg><img src="vsc-icon.png" alt="" width="28" height="27" loading="lazy" /></div>
+
+        <!-- LESSON 1 -->
+        <section class="x-sec" id="lesson-1" data-nav="Lesson 1" aria-labelledby="l1-title">
+          <div class="x-essay">
+            <h2 class="x-essay__title">Start with one real thing</h2>
+            <p>
+              The fastest way to learn is to finish something. Lesson 1 walks you from a blank page to a live website
+              on its own web address, in about nine minutes of video. Once you've done it once, every other lesson
+              clicks into place.
+            </p>
+          </div>
+          <div class="x-sec__head">
+            <p class="x-eyebrow">Start here</p>
+            <h2 class="x-h2" id="l1-title">Lesson 01 · Build a <span class="x-teal">website</span> with Claude</h2>
+            <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">9:01</span></div>
+          </div>
+          <div class="x-feature">
+            <div class="x-video" id="ep1-main" data-video="ep1" data-label="Lesson 1: Build a website with Claude">
+              <img src="thumb_ep1.jpg" alt="Lesson 1 thumbnail: Build a website with Claude" width="1280" height="720" loading="lazy" />
+              <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+            </div>
+            <div class="x-feature__body">
+              <p>
+                This is a real website for a bakery, live on its own web address. It costs nothing to host, and no
+                one wrote a line of code by hand. In eight steps you'll name your site, design it by describing it,
+                build it with Claude, put it online with Netlify and connect your own domain. By the end, yours is
+                live too.
+              </p>
+              <ul class="x-kitline" aria-label="Your kit">
+                <li>Claude Pro <small>design and building</small> <span class="x-price">$20/month</span></li>
+                <li>Google Drive <small>keeps your files together</small> <span class="x-price">Free</span></li>
+                <li>Netlify <small>puts the site online</small> <span class="x-price">Free</span></li>
+                <li>A domain <small>your own web address</small> <span class="x-price">About $10–20/year</span></li>
+              </ul>
+              <div class="x-btns">
+                <a class="x-btn" id="watch-ep1" href="https://www.youtube.com/@vibeshopclass" target="_blank" rel="noopener"
+                  ><svg width="16" height="16" aria-hidden="true"><use href="#x-play-ico" /></svg>Watch Lesson 1</a
+                >
+              </div>
+              <p class="x-next">Then come back for Lesson 2, where the same skills become an iPhone app.</p>
+            </div>
+          </div>
+        </section>
+
+        <svg class="x-divider" aria-hidden="true" focusable="false"><use href="#x-div" /></svg>
+
+        <!-- LESSONS -->
+        <section class="x-sec" id="lessons" data-nav="Lessons" aria-labelledby="lessons-title">
+          <div class="x-sec__head">
+            <p class="x-eyebrow">The lessons</p>
+            <h2 class="x-h2" id="lessons-title">Season 1: <span class="x-teal">six</span> lessons</h2>
+            <div class="x-prose">
+              <p>
+                Each lesson builds a different kind of project with the same simple rhythm: see the finished thing,
+                gather your kit, follow eight short steps, dodge five easy mistakes, then review. Watch them in order,
+                or jump straight to the thing you want to make.
+              </p>
+            </div>
+          </div>
+          <div class="x-lessonbar-anchor" id="lesson-bar"></div>
+          <nav class="x-lessonbar" id="lessonbar" aria-label="Season 1 lessons">
+            <ul class="x-lessonbar__track">
+              <li><a class="x-tab" href="#lesson-1" aria-current="true"><b>01</b> Website</a></li>
+              <li><a class="x-tab" href="#lesson-2"><b>02</b> iPhone app</a></li>
+              <li><a class="x-tab" href="#lesson-3"><b>03</b> Social app</a></li>
+              <li><a class="x-tab" href="#lesson-4"><b>04</b> Novel</a></li>
+              <li><a class="x-tab" href="#lesson-5"><b>05</b> Plan</a></li>
+              <li><a class="x-tab" href="#lesson-6"><b>06</b> Store</a></li>
+            </ul>
+          </nav>
+          <div class="x-lessons">
+            <article class="x-lesson" id="lesson-2" aria-labelledby="l2-title">
+              <div class="x-lesson__head">
+                <p class="x-lesson__num">Lesson <span class="x-ring">02</span></p>
+                <h3 id="l2-title">Build an iPhone app with Claude</h3>
+                <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:10</span></div>
+              </div>
+              <div class="x-video" data-video="ep2" data-label="Lesson 2: Build an iPhone app with Claude">
+                <img src="thumb_ep2.jpg" alt="Lesson 2 thumbnail: Build an iPhone app with Claude" width="1280" height="720" loading="lazy" />
+                <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+              </div>
+              <div class="x-lesson__text">
+                  <p>
+                    Meet Sprout, a real iPhone app with accounts, saved data and reminders. You'll design it, build it
+                    with Expo and Supabase, run it on your own phone and get it ready for the App Store.
+                  </p>
+                  <ul class="x-kitline" aria-label="Kit">
+                    <li>Claude Pro <span class="x-price">$20/month</span></li>
+                    <li>Expo <span class="x-price">Free</span></li>
+                    <li>Supabase <span class="x-price">Free</span></li>
+                    <li>Netlify <span class="x-price">Free</span></li>
+                    <li>Apple Developer Program <span class="x-price">$99/year, only when you publish</span></li>
+                  </ul>
+              </div>
+            </article>
+
+            <article class="x-lesson x-lesson--flip" id="lesson-3" aria-labelledby="l3-title">
+              <div class="x-lesson__head">
+                <p class="x-lesson__num">Lesson <span class="x-ring">03</span></p>
+                <h3 id="l3-title">Build a social app with Claude</h3>
+                <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:07</span></div>
+              </div>
+              <div class="x-video" data-video="ep3" data-label="Lesson 3: Build a social app with Claude">
+                <img src="thumb_ep3.jpg" alt="Lesson 3 thumbnail: Build a social app with Claude" width="1280" height="720" loading="lazy" />
+                <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+              </div>
+              <div class="x-lesson__text">
+                  <p>
+                    Trailmates is a social network for a hiking club, with profiles, photos, likes and comments,
+                    running on iPhone and the web from one project.
+                  </p>
+                  <p>Same kit as the app lesson, so if you did Lesson 2 you're already set up.</p>
+              </div>
+            </article>
+
+            <aside class="x-interlude" aria-labelledby="interlude-title">
+              <h3 id="interlude-title">Not just code</h3>
+              <div class="x-prose">
+                <p>
+                  Building isn't only apps. The same approach works for a novel, a plan or a business: you bring the
+                  vision and the judgment, and Claude handles the heavy lifting of drafting, organizing and keeping track.
+                </p>
+              </div>
+            </aside>
+
+            <article class="x-lesson" id="lesson-4" aria-labelledby="l4-title">
+              <div class="x-lesson__head">
+                <p class="x-lesson__num">Lesson <span class="x-ring">04</span></p>
+                <h3 id="l4-title">Write a novel with Claude</h3>
+                <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:10</span></div>
+              </div>
+              <div class="x-video" data-video="ep4" data-label="Lesson 4: Write a novel with Claude">
+                <img src="thumb_ep4.jpg" alt="Lesson 4 thumbnail: Write a novel with Claude" width="1280" height="720" loading="lazy" />
+                <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+              </div>
+              <div class="x-lesson__text">
+                  <p>
+                    A world, a plot, a first chapter, a cover and a plan to publish, built with AI as a partner. The
+                    story stays yours; Claude keeps the whole book straight.
+                  </p>
+                  <ul class="x-kitline" aria-label="Kit">
+                    <li>Claude Pro <span class="x-price">$20/month</span></li>
+                    <li>Google Drive and Docs <span class="x-price">Free</span></li>
+                    <li>Amazon Kindle Direct Publishing <span class="x-price">Free to start</span></li>
+                  </ul>
+              </div>
+            </article>
+
+            <article class="x-lesson x-lesson--flip" id="lesson-5" aria-labelledby="l5-title">
+              <div class="x-lesson__head">
+                <p class="x-lesson__num">Lesson <span class="x-ring">05</span></p>
+                <h3 id="l5-title">Plan your projects with Claude</h3>
+                <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:04</span></div>
+              </div>
+              <div class="x-video" data-video="ep5" data-label="Lesson 5: Plan your projects with Claude">
+                <img src="thumb_ep5.jpg" alt="Lesson 5 thumbnail: Plan your projects with Claude" width="1280" height="720" loading="lazy" />
+                <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+              </div>
+              <div class="x-lesson__text">
+                  <p>
+                    Three projects, one plan: every step, every cost and every decision date, already on your
+                    calendar. Connect Drive, Gmail and Calendar and Claude builds the plan from files it finds on its own.
+                  </p>
+                  <ul class="x-kitline" aria-label="Kit">
+                    <li>Claude Pro <span class="x-price">$20/month</span></li>
+                    <li>Three Google connectors <span class="x-price">Free</span></li>
+                  </ul>
+              </div>
+            </article>
+
+            <article class="x-lesson" id="lesson-6" aria-labelledby="l6-title">
+              <div class="x-lesson__head">
+                <p class="x-lesson__num">Lesson <span class="x-ring">06</span></p>
+                <h3 id="l6-title">Launch a store with Claude</h3>
+                <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:02</span></div>
+              </div>
+              <div class="x-video" data-video="ep6" data-label="Lesson 6: Launch a store with Claude">
+                <img src="thumb_ep6.jpg" alt="Lesson 6 thumbnail: Launch a store with Claude" width="1280" height="720" loading="lazy" />
+                <span class="x-video__soon"><i><svg width="12" height="12"><use href="#x-play-ico" /></svg></i>Premieres soon on YouTube</span>
+              </div>
+              <div class="x-lesson__text">
+                  <p>
+                    A T-shirt brand with its own store and no stock in a garage: each shirt is printed when someone
+                    orders it. You'll name the brand, design the shirts, open the store and connect your domain.
+                  </p>
+                  <ul class="x-kitline" aria-label="Kit">
+                    <li>Claude Pro <span class="x-price">$20/month</span></li>
+                    <li>Fourthwall <span class="x-price">Free</span> <small>store, printing, shipping</small></li>
+                    <li>A domain <span class="x-price">About $10–20/year</span></li>
+                    <li>Google Drive <span class="x-price">Free</span></li>
+                  </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <svg class="x-divider" aria-hidden="true" focusable="false"><use href="#x-div" /></svg>
+
+        <!-- HOW IT WORKS -->
+        <section class="x-sec" id="how" data-nav="How it works" aria-labelledby="how-title">
+          <div class="x-essay">
+            <h2 class="x-essay__title">Built for people who want to make things</h2>
+            <p>
+              Every lesson is written for a beginner and paced for a busy person. Jargon gets explained the first time
+              it shows up. Every price is shown before you spend anything. And whenever you leave Claude to click
+              something elsewhere, you'll see exactly where to go.
+            </p>
+          </div>
+          <div class="x-sec__head">
+            <p class="x-eyebrow">How every lesson works</p>
+            <h2 class="x-h2" id="how-title">The same <span class="x-teal">lesson plan</span>, every time</h2>
+          </div>
+          <div class="x-plan-wrap">
+            <ol class="x-plan" id="plan">
+              <li style="--i: 0"><span class="x-plan__n">01</span><span class="x-plan__box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#071a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span><span class="x-plan__t"><b>The hook:</b> <span>see the finished thing first.</span></span></li>
+              <li style="--i: 1"><span class="x-plan__n">02</span><span class="x-plan__box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#071a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span><span class="x-plan__t"><b>Your kit:</b> <span>every tool, with its price.</span></span></li>
+              <li style="--i: 2"><span class="x-plan__n">03</span><span class="x-plan__box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#071a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span><span class="x-plan__t"><b>Eight steps,</b> <span>always the shortest path.</span></span></li>
+              <li style="--i: 3"><span class="x-plan__n">04</span><span class="x-plan__box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#071a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span><span class="x-plan__t"><b>Click paths</b> <span>shown every time you leave Claude.</span></span></li>
+              <li style="--i: 4"><span class="x-plan__n">05</span><span class="x-plan__box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#071a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span><span class="x-plan__t"><b>Five easy mistakes,</b> <span>so you skip them.</span></span></li>
+              <li style="--i: 5"><span class="x-plan__n">06</span><span class="x-plan__box" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#071a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span><span class="x-plan__t"><b>The review,</b> <span>so it sticks.</span></span></li>
+            </ol>
+            <p class="x-margin">Claude does the heavy lifting. The ideas are yours.</p>
+          </div>
+        </section>
+
+        <div class="x-divider-seal" aria-hidden="true"><svg class="x-divider" focusable="false"><use href="#x-div-open" /></svg><img src="vsc-icon.png" alt="" width="28" height="27" loading="lazy" /></div>
+
+        <!-- CLOSING -->
+        <section class="x-sec" id="signup" aria-labelledby="cta-title">
+          <div class="x-cta">
+            <svg aria-hidden="true" focusable="false"><use href="#x-circ-wide" /></svg>
+            <h2 class="x-h2" id="cta-title">Your first build is <span class="x-teal">9 minutes</span> away.</h2>
+            <div class="x-btns">
+              <a class="x-btn" href="#lesson-1">Start Lesson 1</a>
+              <a class="x-btn x-btn--ghost" data-channel href="https://www.youtube.com/@vibeshopclass" target="_blank" rel="noopener">Subscribe on YouTube</a>
+            </div>
+            <p class="x-cta__small">New lesson every week.</p>
+            <div class="x-signup" data-source="footer-cta">
+              <form class="x-signup__form" novalidate aria-labelledby="su-cta-head">
+                <h3 class="x-signup__head" id="su-cta-head">Get each new lesson in your inbox</h3>
+                <p class="x-signup__sub">One email when a lesson drops. No spam, unsubscribe anytime.</p>
+                <div class="x-signup__row">
+                  <input class="x-signup__input" id="su-cta-email" aria-label="Email address" type="email" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required aria-describedby="su-cta-status" />
+                  <button class="x-btn" type="submit">Send me the lessons</button>
+                </div>
+                <div class="x-hp" aria-hidden="true"><label for="su-cta-hp">Leave this field empty</label><input id="su-cta-hp" type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+              </form>
+              <p class="x-signup__status" id="su-cta-status" role="status" aria-live="polite"></p>
+              <img class="x-signup__seal" src="vsc-icon.png" alt="" width="34" height="32" loading="lazy" hidden />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="x-foot">
+        <p class="x-foot__brand">
+          <img src="vsc-icon.png" alt="" width="56" height="53" loading="lazy" />
+          <span>Vibe Shop Class · A <a href="https://terriusinc.com" target="_blank" rel="noopener">Terrius</a> company</span>
+        </p>
+        <p>Examples in every lesson are made up (Brightside Bakery, Sprout, Trailmates, Northbound Tees). Prices checked Oct 2026.</p>
+        <p class="x-foot__disclaimer">Vibe Shop Class is independent and is not sponsored by, endorsed by or affiliated with Anthropic, the maker of Claude.</p>
+      </footer>
+    </div>
+    <script src="hark.js"></script>
+    <script>
+      /* ===== Paste YouTube IDs here (the part after watch?v= or /shorts/). Leave "" until a video is live. ===== */
+      const VIDEOS = { ep1: "", ep2: "", ep3: "", ep4: "", ep5: "", ep6: "" };
+      const SHORTS = { s1: "", s2: "", s3: "", s4: "", s5: "", s6: "", s7: "", s8: "", s9: "" };
+      /* s1–s3 fill the "Quick hits from Lesson 1" row. s4–s9 are not on the page right now (their rows were
+         removed for a calmer layout); they are kept here so the IDs are ready if those rows come back. */
+      const CHANNEL_URL = "https://www.youtube.com/@vibeshopclass";
+      const SUBSCRIBE_URL = "https://mpdxxfwgrgevsbkuehcp.supabase.co/rest/v1/rpc/vsc_subscribe";
+      const SUPABASE_KEY = "sb_publishable_I8b3ETq7AyHfuU0mkMBOmw_so7-Jl50";
+      /* ========================================================================================================= */
+
+      (function () {
+        const clean = (id) => String(id || "").trim().replace(/[^\w-]/g, "");
+        const playIcon = (size) =>
+          '<i><svg width="' + size + '" height="' + size + '" aria-hidden="true"><use href="#x-play-ico" /></svg></i>';
+
+        function play(slot, id) {
+          const frame = document.createElement("iframe");
+          frame.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+          frame.title = slot.dataset.label || "YouTube video";
+          frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          frame.allowFullscreen = true;
+          frame.referrerPolicy = "strict-origin-when-cross-origin";
+          slot.replaceChildren(frame);
+          frame.focus();
+        }
+
+        function arm(slot, id, iconSize, isShort) {
+          if (!id) return;
+          const soon = slot.querySelector(".x-video__soon, .x-short__soon");
+          if (soon && !isShort) soon.remove();
+          if (soon && isShort) soon.textContent = "Watch the Short";
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "x-play";
+          btn.setAttribute("aria-label", "Play " + (slot.dataset.label || "video"));
+          btn.innerHTML = playIcon(iconSize);
+          btn.addEventListener("click", () => play(slot, id));
+          slot.appendChild(btn);
+          slot._play = () => play(slot, id);
+        }
+
+        document.querySelectorAll("[data-video]").forEach((s) => arm(s, clean(VIDEOS[s.dataset.video]), 28, false));
+        document.querySelectorAll("[data-short]").forEach((s) => arm(s, clean(SHORTS[s.dataset.short]), 22, true));
+
+        document.querySelectorAll("[data-channel]").forEach((a) => (a.href = CHANNEL_URL));
+
+        // "Watch Lesson 1": plays the featured slot when the video is live, otherwise opens the channel.
+        const watch = document.getElementById("watch-ep1");
+        const ep1 = clean(VIDEOS.ep1);
+        if (watch) {
+          if (ep1) {
+            watch.href = "https://www.youtube.com/watch?v=" + ep1;
+            watch.addEventListener("click", (e) => {
+              const slot = document.getElementById("ep1-main");
+              if (!slot || !slot._play) return;
+              e.preventDefault();
+              slot.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+              slot._play();
+            });
+          } else {
+            watch.href = CHANNEL_URL;
+          }
+        }
+
+        // The lesson plan ticks on as it scrolls into view.
+        const plan = document.getElementById("plan");
+        if (plan) {
+          if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) plan.classList.add("is-in");
+          else {
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach((e) => { if (e.isIntersecting) { plan.classList.add("is-in"); io.disconnect(); } });
+            }, { threshold: 0.35 });
+            io.observe(plan);
+          }
+        }
+      })();
+
+      /* ===== Email signup ===== */
+      (function () {
+        const BAD = "That email doesn't look right.";
+        const OOPS = "Something went wrong. Try again in a moment.";
+        const EMAIL_RE = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
+
+        document.querySelectorAll(".x-signup").forEach((box) => {
+          const form = box.querySelector("form");
+          const input = box.querySelector(".x-signup__input");
+          const btn = box.querySelector('button[type="submit"]');
+          const hp = box.querySelector('.x-hp input');
+          const status = box.querySelector(".x-signup__status");
+          const label = btn.textContent;
+
+          const say = (msg) => { status.classList.remove("is-done"); status.textContent = msg; };
+          const fail = (msg, invalid) => {
+            say(msg);
+            if (invalid) input.setAttribute("aria-invalid", "true");
+            input.focus();
+          };
+          const done = () => {
+            form.hidden = true;
+            status.classList.add("is-done");
+            status.innerHTML =
+              '<span class="x-signup__done">You\u2019re in. Lesson 1 is waiting for you.</span>' +
+              '<a class="x-signup__go" href="#lesson-1">Start Lesson 1</a>';
+            const seal = box.querySelector(".x-signup__seal");
+            if (seal) { seal.hidden = false; status.prepend(seal); }
+            status.tabIndex = -1;
+            status.focus({ preventScroll: true });
+          };
+
+          input.addEventListener("input", () => {
+            if (input.hasAttribute("aria-invalid")) { input.removeAttribute("aria-invalid"); say(""); }
+          });
+
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (btn.disabled) return;
+            if (hp && hp.value) { done(); return; } // bots: skip the request, look successful
+            const email = input.value.trim();
+            if (!EMAIL_RE.test(email)) { fail(BAD, true); return; }
+
+            btn.disabled = true;
+            btn.textContent = "Sending\u2026";
+            form.setAttribute("aria-busy", "true");
+            say("");
+            try {
+              const res = await fetch(SUBSCRIBE_URL, {
+                method: "POST",
+                headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
+                body: JSON.stringify({ p_email: email, p_source: box.dataset.source }),
+              });
+              if (res.ok) { done(); return; }
+              let msg = "";
+              try {
+                const text = await res.text();
+                try {
+                  const j = JSON.parse(text);
+                  msg = [j.message, j.error, j.details, j.hint, j.msg].filter(Boolean).join(" ");
+                } catch (_) { msg = text; }
+              } catch (_) {}
+              if (/invalid email/i.test(msg)) fail(BAD, true);
+              else fail(OOPS, false);
+            } catch (err) {
+              if (/invalid email/i.test(String(err && err.message))) fail(BAD, true);
+              else fail(OOPS, false);
+            } finally {
+              btn.disabled = false;
+              btn.textContent = label;
+              form.removeAttribute("aria-busy");
+            }
+          });
+        });
+      })();
+
+      /* ===== Lesson switcher: sticky pills that follow the reader and jump to a lesson ===== */
+      (function () {
+        const bar = document.getElementById("lessonbar");
+        if (!bar) return;
+        const root = document.documentElement;
+        const header = document.querySelector(".x-header");
+        const track = bar.querySelector(".x-lessonbar__track");
+        const tabs = Array.from(bar.querySelectorAll(".x-tab"));
+        const targets = tabs.map((t) => document.getElementById(t.getAttribute("href").slice(1)));
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+        let headH = 65, barH = 64, current = -1, lockUntil = 0, io = null;
+
+        function centerTab(tab) {
+          if (track.scrollWidth <= track.clientWidth + 1) return;
+          const tr = track.getBoundingClientRect(), r = tab.getBoundingClientRect();
+          const left = track.scrollLeft + (r.left - tr.left) - (tr.width - r.width) / 2;
+          track.scrollTo({ left: Math.max(0, left), behavior: reduce.matches ? "auto" : "smooth" });
+        }
+        function setActive(i) {
+          if (i === current || !tabs[i]) return;
+          current = i;
+          tabs.forEach((t, j) => (j === i ? t.setAttribute("aria-current", "true") : t.removeAttribute("aria-current")));
+          centerTab(tabs[i]);
+        }
+        // the reading line sits a quarter of the screen below the header and bar
+        const lineY = () => headH + barH + Math.round(window.innerHeight * 0.25);
+        function fromRects() {
+          const y = lineY();
+          let i = 0;
+          targets.forEach((el, j) => { if (el && el.getBoundingClientRect().top <= y) i = j; });
+          setActive(i);
+        }
+        function watch() {
+          if (io) io.disconnect();
+          if (!("IntersectionObserver" in window)) { window.addEventListener("scroll", fromRects, { passive: true }); return; }
+          const y = lineY();
+          // a 1px band at the reading line: whichever lesson covers it is the active one
+          io = new IntersectionObserver((entries) => {
+            if (Date.now() < lockUntil) return;
+            entries.forEach((e) => { if (e.isIntersecting) setActive(targets.indexOf(e.target)); });
+          }, { rootMargin: -y + "px 0px " + -(window.innerHeight - y - 1) + "px 0px" });
+          targets.forEach((el) => el && io.observe(el));
+        }
+        function measure() {
+          headH = header ? header.offsetHeight : 0;
+          barH = bar.offsetHeight;
+          root.style.setProperty("--x-head-h", headH + "px");
+          root.style.setProperty("--x-bar-h", barH + "px");
+        }
+
+        tabs.forEach((tab, i) =>
+          tab.addEventListener("click", (e) => {
+            const el = targets[i];
+            if (!el) return;
+            e.preventDefault();
+            lockUntil = Date.now() + 1200;
+            setActive(i);
+            el.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth", block: "start" });
+            history.replaceState(null, "", "#" + el.id);
+          })
+        );
+
+        let t;
+        window.addEventListener("resize", () => {
+          clearTimeout(t);
+          t = setTimeout(() => { measure(); watch(); fromRects(); }, 150);
+        });
+        measure();
+        watch();
+        fromRects();
+      })();
+
+      /* ===== Gentle fade-up as each block enters view (12px, 400ms). Plain scrolling; off under reduced motion. ===== */
+      (function () {
+        if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const blocks = document.querySelectorAll(
+          ".x-essay, .x-sec__head, .x-flow > li, .x-tip, .x-shorts, .x-feature, .x-lesson, .x-interlude, .x-plan-wrap, .x-cta"
+        );
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+        }, { rootMargin: "0px 0px -6% 0px" });
+        blocks.forEach((b) => {
+          b.classList.add("x-rv");
+          // already on screen at load (or reached by a link): show at once, no fade
+          if (b.getBoundingClientRect().top < window.innerHeight) b.classList.add("is-in");
+          else io.observe(b);
+        });
+        // keyboard focus inside a block that has not faded in yet: show it straight away
+        document.addEventListener("focusin", (e) => {
+          const b = e.target.closest && e.target.closest(".x-rv:not(.is-in)");
+          if (b) { b.classList.add("is-in"); io.unobserve(b); }
+        });
+        document.documentElement.classList.add("x-fx");
+      })();
+    </script>
+  </body>
+</html>
