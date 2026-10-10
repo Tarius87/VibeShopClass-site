@@ -473,6 +473,75 @@
         .x-plan__box::after, .x-glitch, .x-ripple { animation: none !important; }
         .x-receipt.is-printing { clip-path: none; } .x-pen path { transition: none; stroke-dashoffset: 0; }
       }
+
+      /* ===== Sections as bands (Oct 2026 v2) ===== */
+      .x-band { position: relative; isolation: isolate; }
+      .x-band::before { content: ""; position: absolute; inset: 0 calc(50% - 50vw); z-index: -1; background: transparent; }
+      .x-band--deep::before { background: linear-gradient(180deg, #10302f, #12363b); }
+      .x-band--light { color: #163a40;
+        --x-teal-bright: #11857b; --x-peach-light: #d4643c; --x-muted: #4a686c; --x-panel: #e8f2f1;
+        --x-line: rgb(22 58 64 / 0.13); --x-line-strong: rgb(22 58 64 / 0.28); --text-primary: #163a40; --hover-wash: rgb(17 133 123 / .08); }
+      .x-band--light::before { background: #fbfdfc; box-shadow: inset 0 1px 0 rgb(22 58 64 / .06); }
+      .x-band--light::after { content: ""; position: absolute; inset: 0 calc(50% - 50vw); z-index: -1; pointer-events: none;
+        background: radial-gradient(40vw 30vw at 100% 0%, rgb(58 209 197 / .10), transparent 70%), radial-gradient(36vw 26vw at 0% 100%, rgb(244 144 107 / .09), transparent 70%); }
+      .x-band--light h2, .x-band--light h3, .x-band--light .x-plan__t b, .x-band--light .x-kitline:not(.x-receipt), .x-band--light .x-signup__head { color: #163a40; }
+      .x-band--light .x-prose p, .x-band--light .x-essay p { color: #2b4b50; }
+      .x-band--light .x-btn--ghost { color: #163a40; }
+      .x-band--light .x-tab:hover { color: #163a40; }
+      .x-band--light .x-status--ready { background: #dcf1ee; }
+      .x-band--light .x-lessonbar { background: rgb(251 253 252 / .9); }
+      .x-band--light .x-signup__input { background: #fff; color: #163a40; }
+      .x-band--light .x-cta { background: linear-gradient(135deg, #163a40, #1f4c53); color: #fff; --x-teal-bright: #3ad1c5; --x-peach-light: #ffb38a; --x-muted: #cee2e0; --x-line: rgb(255 255 255 / .14); --x-line-strong: rgb(255 255 255 / .3); }
+      .x-band--light .x-cta h2, .x-band--light .x-cta h3, .x-band--light .x-cta .x-signup__head, .x-band--light .x-cta .x-btn--ghost { color: #fff; }
+      .x-band--light .x-cta .x-signup__input { background: rgb(7 26 31 / .5); color: #fff; }
+      .x-band--light .x-video, .x-band--light .x-short { box-shadow: 0 18px 40px rgb(22 58 64 / .18); }
+      .x-band + .x-divider, .x-band + .x-divider-seal, .x-divider + .x-band, .x-divider-seal + .x-band { }
+      main > .x-divider, main > .x-divider-seal { display: none; }
+      .x-band:not(.x-band--light) + .x-band--light, .x-band--light + .x-band:not(.x-band--light) { }
+      /* chapter marker at the top of each section */
+      .x-chapter { display: flex; align-items: center; gap: 14px; margin-bottom: clamp(36px, 5vw, 56px); font: 700 13px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--x-teal-bright); }
+      .x-chapter__n { font: 800 clamp(44px, 6vw, 72px)/0.9 var(--sans); letter-spacing: -.02em; color: transparent; -webkit-text-stroke: 1.5px var(--x-teal-bright); }
+      .x-chapter svg { width: clamp(60px, 12vw, 160px); height: 16px; overflow: visible; }
+      .x-chapter path { fill: none; stroke: var(--x-peach); stroke-width: 2; stroke-dasharray: 220; stroke-dashoffset: 220; transition: stroke-dashoffset 1s var(--ease-out) .15s; }
+      .x-chapter circle { fill: var(--x-peach); opacity: 0; transition: opacity .3s ease 1s; }
+      .x-chapter.is-in path { stroke-dashoffset: 0; } .x-chapter.is-in circle { opacity: 1; }
+      .x-chapter__n { display: inline-block; transform: translateY(18px); opacity: 0; transition: transform .7s var(--ease-out), opacity .7s ease; }
+      .x-chapter.is-in .x-chapter__n { transform: none; opacity: 1; }
+      /* header: CTA is an outline, nav shows where you are */
+      .x-head-cta { border-color: var(--x-peach); color: #fff; }
+      .x-head-cta:hover { background: var(--x-peach); color: var(--x-bg); }
+      .x-navlink { position: relative; }
+      .x-navlink::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 8px; height: 2px; border-radius: 2px; background: var(--x-teal-bright); transform: scaleX(0); transition: transform .35s var(--ease-out); }
+      .x-navlink.is-active { color: #fff; } .x-navlink.is-active::after { transform: scaleX(1); }
+      .x-progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: linear-gradient(90deg, var(--x-teal-bright), var(--x-peach)); transform-origin: left; transform: scaleX(0); }
+      /* scroll reveals */
+      .x-rv { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .8s var(--ease-out); transition-delay: calc(var(--d, 0) * 90ms); }
+      .x-rv.x-rv.is-in { opacity: 1; transform: none; }
+      html, body { overflow-x: clip; }
+      .x-rv--l { transform: translateX(-34px); } .x-rv--r { transform: translateX(34px); }
+      /* hero word cycle */
+      .x-cycle { display: inline-block; color: var(--x-peach-light); min-width: 3ch; }
+      .x-cycle::after { content: ""; display: inline-block; width: 3px; height: .8em; margin-left: 4px; background: currentColor; vertical-align: -0.05em; animation: x-caret 1s steps(1) infinite; }
+      @keyframes x-caret { 50% { opacity: 0; } }
+      /* flow: wire connects the three cards */
+      .x-flow { position: relative; }
+      .x-flow li { position: relative; background: #fff; border: 1px solid var(--x-line); border-radius: 18px; padding: 26px; box-shadow: 0 10px 30px rgb(22 58 64 / .08); transition: transform .3s var(--ease-out), box-shadow .3s; }
+      .x-flow li:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgb(22 58 64 / .16); }
+      .x-flow li::before { content: counter(list-item, decimal-leading-zero); display: block; font: 800 14px/1 var(--sans); color: var(--x-peach-light); letter-spacing: .1em; margin-bottom: 14px; }
+      /* thumbnails: tilt toward the pointer, slow zoom in view */
+      .x-video { transition: transform .4s var(--ease-out); transform-style: preserve-3d; will-change: transform; }
+      .x-video > img { transition: transform 6s ease; } .x-video.is-in > img { transform: scale(1.06); }
+      .x-video__shine { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / .18), transparent 60%); opacity: 0; transition: opacity .3s; }
+      .x-video:hover .x-video__shine { opacity: 1; }
+      /* deep band: floating sparks behind the lesson plan */
+      .x-sparks { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+      .x-sparks i { position: absolute; bottom: -10px; width: 4px; height: 4px; border-radius: 50%; background: var(--x-peach); opacity: .0; animation: x-rise linear infinite; }
+      @keyframes x-rise { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .7; } 100% { transform: translateY(-110vh); opacity: 0; } }
+      .x-proof b { display: inline-block; min-width: 1ch; }
+      @media (prefers-reduced-motion: reduce) {
+        .x-rv { opacity: 1; transform: none; transition: none; } .x-sparks, .x-cycle::after { display: none; }
+        .x-video, .x-video > img { transition: none; transform: none !important; } .x-chapter path { stroke-dashoffset: 0; } .x-chapter__n { opacity: 1; transform: none; }
+      }
     </style>
   </head>
   <body>
@@ -523,9 +592,9 @@
           ><img src="vsc-lockup.png" alt="Vibe Shop Class" width="92" height="40"
         /></a>
         <nav aria-label="Main">
-          <a class="x-navlink" href="#lesson-bar">Lessons</a>
-          <a class="x-navlink" href="#how">How it works</a>
-          <a class="x-btn x-btn--sm" href="#lesson-1"><span class="x-long">Start lesson 1</span><span class="x-short-label">Lesson 1</span></a>
+          <a class="x-navlink" href="#lesson-bar" data-spy="lessons">Lessons</a>
+          <a class="x-navlink" href="#how" data-spy="how">How it works</a>
+          <a class="x-btn x-btn--sm x-btn--ghost x-head-cta" href="#lesson-1"><span class="x-long">Start lesson 1</span><span class="x-short-label">Lesson 1</span></a>
         </nav>
       </header>
 
@@ -554,7 +623,7 @@
           <div class="x-hero__grid">
             <div class="x-hero__copy">
               <p class="x-eyebrow">Shop class for the AI era</p>
-              <h1 class="x-display" id="hero-title">Build <span class="x-teal">real</span> things</h1>
+              <h1 class="x-display" id="hero-title">Build <span class="x-teal">real</span> <span class="x-cycle" data-words="websites|apps|stores|books|things">things</span></h1>
               <p class="x-hand">with Claude</p>
               <p class="x-lede">
                 Websites, apps, stores, books and systems. You bring the idea, Claude does the heavy lifting. Every
@@ -597,7 +666,7 @@
         <svg class="x-divider" aria-hidden="true" focusable="false"><use href="#x-div" /></svg>
 
         <!-- WHAT VIBE CODING IS -->
-        <section class="x-sec" id="vibe" data-nav="Vibe coding" aria-labelledby="vibe-title">
+        <section class="x-sec x-band x-band--light" id="vibe" data-nav="Vibe coding" aria-labelledby="vibe-title">
           <div class="x-essay">
             <h2 class="x-essay__title">You don't need to be a coder anymore</h2>
             <p>
@@ -661,7 +730,7 @@
         <div class="x-divider-seal" aria-hidden="true"><svg class="x-divider" focusable="false"><use href="#x-div-open" /></svg><img src="vsc-icon.png" alt="" width="28" height="27" loading="lazy" /></div>
 
         <!-- LESSON 1 -->
-        <section class="x-sec" id="lesson-1" data-nav="Lesson 1" aria-labelledby="l1-title">
+        <section class="x-sec x-band" id="lesson-1" data-nav="Lesson 1" aria-labelledby="l1-title">
           <div class="x-essay">
             <h2 class="x-essay__title">Start with one real thing</h2>
             <p>
@@ -707,7 +776,7 @@
         <svg class="x-divider" aria-hidden="true" focusable="false"><use href="#x-div" /></svg>
 
         <!-- LESSONS -->
-        <section class="x-sec" id="lessons" data-nav="Lessons" aria-labelledby="lessons-title">
+        <section class="x-sec x-band x-band--light" id="lessons" data-nav="Lessons" aria-labelledby="lessons-title">
           <div class="x-sec__head">
             <p class="x-eyebrow">The lessons</p>
             <h2 class="x-h2" id="lessons-title">Season 1: <span class="x-teal">six</span> lessons</h2>
@@ -722,7 +791,7 @@
           <div class="x-lessonbar-anchor" id="lesson-bar"></div>
           <nav class="x-lessonbar" id="lessonbar" aria-label="Season 1 lessons">
             <ul class="x-lessonbar__track">
-              <li><a class="x-tab" href="#lesson-1" aria-current="true"><b>01</b> Website</a></li>
+              <li><a class="x-tab" href="#lesson-1"><b>01</b> Website</a></li>
               <li><a class="x-tab" href="#lesson-2"><b>02</b> iPhone app</a></li>
               <li><a class="x-tab" href="#lesson-3"><b>03</b> Social app</a></li>
               <li><a class="x-tab" href="#lesson-4"><b>04</b> Novel</a></li>
@@ -859,7 +928,7 @@
         <svg class="x-divider" aria-hidden="true" focusable="false"><use href="#x-div" /></svg>
 
         <!-- HOW IT WORKS -->
-        <section class="x-sec" id="how" data-nav="How it works" aria-labelledby="how-title">
+        <section class="x-sec x-band x-band--deep" id="how" data-nav="How it works" aria-labelledby="how-title">
           <div class="x-essay">
             <h2 class="x-essay__title">Built for people who want to make things</h2>
             <p>
@@ -888,7 +957,7 @@
         <div class="x-divider-seal" aria-hidden="true"><svg class="x-divider" focusable="false"><use href="#x-div-open" /></svg><img src="vsc-icon.png" alt="" width="28" height="27" loading="lazy" /></div>
 
         <!-- CLOSING -->
-        <section class="x-sec" id="signup" aria-labelledby="cta-title">
+        <section class="x-sec x-band x-band--light" id="signup" data-nav="Get started" aria-labelledby="cta-title">
           <div class="x-cta">
             <svg aria-hidden="true" focusable="false"><use href="#x-circ-wide" /></svg>
             <h2 class="x-h2" id="cta-title">Your first build is <span class="x-teal">9 minutes</span> away.</h2>
@@ -1107,8 +1176,10 @@
         const lineY = () => headH + barH + Math.round(window.innerHeight * 0.25);
         function fromRects() {
           const y = lineY();
-          let i = 0;
-          targets.forEach((el, j) => { if (el && el.getBoundingClientRect().top <= y) i = j; });
+          let i = -1;
+          targets.forEach((el, j) => { if (el && j > 0 && el.getBoundingClientRect().top <= y) i = j; });
+          const ls = document.getElementById("lessons"); if (ls && ls.getBoundingClientRect().bottom < y) i = -1;
+          if (i === -1) { if (current !== -1) { current = -1; tabs.forEach((t) => t.removeAttribute("aria-current")); } return; }
           setActive(i);
         }
         function watch() {
@@ -1208,6 +1279,49 @@
           seen(el, () => el.classList.add("is-in"), 0.8); });
         // 8 finale
         seen(document.querySelector(".x-foot"), (f) => f.classList.add("is-in"), 0.5);
+      })();
+    </script>
+
+    <script>
+      /* ===== v2 motion: chapters, reveals, scroll-spy, progress, word cycle, tilt, sparks, count-up ===== */
+      (function () {
+        const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const io = ("IntersectionObserver" in window) && !calm ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }) : null;
+        const watch = (el) => io ? io.observe(el) : el.classList.add("is-in");
+        // chapter markers
+        const bands = [...document.querySelectorAll("main > .x-band")];
+        bands.forEach((b, i) => { const c = document.createElement("div"); c.className = "x-chapter"; c.setAttribute("aria-hidden", "true");
+          c.innerHTML = `<span class="x-chapter__n">${String(i + 1).padStart(2, "0")}</span><svg viewBox="0 0 160 16" preserveAspectRatio="none"><path d="M0 8 H70 l6 -6 H150" vector-effect="non-scaling-stroke"/><circle cx="152" cy="2" r="3"/></svg><span>${b.dataset.nav || ""}</span>`;
+          b.prepend(c); watch(c); });
+        // reveals
+        const groups = [".x-essay > *", ".x-sec__head > *", ".x-flow li", ".x-tip", ".x-shorts__row li", ".x-feature > *", ".x-lesson", ".x-interlude", ".x-plan li", ".x-margin", ".x-cta > *:not(svg)"];
+        groups.forEach((sel) => document.querySelectorAll(sel).forEach((el, i) => { if (el.closest(".x-hero")) return; el.classList.add("x-rv"); el.style.setProperty("--d", i % 6); watch(el); }));
+        document.querySelectorAll(".x-lesson").forEach((el) => el.classList.add(el.classList.contains("x-lesson--flip") ? "x-rv--r" : "x-rv--l"));
+        // header progress + scroll-spy
+        const head = document.querySelector(".x-header");
+        if (head) { const bar = document.createElement("span"); bar.className = "x-progress"; head.appendChild(bar);
+          const links = [...head.querySelectorAll("[data-spy]")];
+          const tick = () => { const max = document.documentElement.scrollHeight - innerHeight; bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+            const y = innerHeight * 0.35; links.forEach((a) => { const s = document.getElementById(a.dataset.spy); const r = s && s.getBoundingClientRect(); a.classList.toggle("is-active", !!r && r.top <= y && r.bottom > y); }); };
+          addEventListener("scroll", tick, { passive: true }); tick(); }
+        // hero word cycle (typewriter)
+        const cy = document.querySelector(".x-cycle");
+        if (cy && !calm) { const words = cy.dataset.words.split("|"); let w = 0;
+          const type = (word, n) => { cy.textContent = word.slice(0, n); if (n < word.length) setTimeout(() => type(word, n + 1), 70); else setTimeout(erase, 1800); };
+          const erase = () => { const t = cy.textContent; if (t.length) { cy.textContent = t.slice(0, -1); setTimeout(erase, 40); } else { w = (w + 1) % words.length; type(words[w], 1); } };
+          setTimeout(erase, 2200); }
+        // thumbnails: tilt + shine + slow zoom
+        document.querySelectorAll(".x-video").forEach((v) => { watch(v); if (calm) return; const sh = document.createElement("span"); sh.className = "x-video__shine"; v.appendChild(sh);
+          v.addEventListener("pointermove", (e) => { const r = v.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+            v.style.transform = `perspective(900px) rotateY(${(x - .5) * 8}deg) rotateX(${(.5 - y) * 6}deg)`; v.style.setProperty("--mx", x * 100 + "%"); v.style.setProperty("--my", y * 100 + "%"); });
+          v.addEventListener("pointerleave", () => { v.style.transform = ""; }); });
+        // sparks in the deep band
+        const deep = document.querySelector(".x-band--deep");
+        if (deep && !calm) { const sp = document.createElement("div"); sp.className = "x-sparks"; sp.setAttribute("aria-hidden", "true");
+          sp.innerHTML = Array.from({ length: 16 }, (_, i) => `<i style="left:${(i * 61) % 100}%;animation-duration:${9 + (i % 5) * 2}s;animation-delay:${-(i * 1.3)}s;${i % 3 ? "background:#3ad1c5;" : ""}"></i>`).join(""); deep.prepend(sp); }
+        // proof numbers count up
+        document.querySelectorAll(".x-proof b").forEach((b) => { const end = parseInt(b.textContent, 10); if (!end || calm) return; b.textContent = "0";
+          const o = new IntersectionObserver((es) => { if (!es[0].isIntersecting) return; o.disconnect(); let n = 0; const t = setInterval(() => { b.textContent = ++n; if (n >= end) clearInterval(t); }, 120); }); o.observe(b); });
       })();
     </script>
   </body>
