@@ -508,8 +508,9 @@
       .x-chapter__n { display: inline-block; transform: translateY(18px); opacity: 0; transition: transform .7s var(--ease-out), opacity .7s ease; }
       .x-chapter.is-in .x-chapter__n { transform: none; opacity: 1; }
       /* header: CTA is an outline, nav shows where you are */
-      .x-head-cta { border-color: var(--x-peach); color: #fff; }
-      .x-head-cta:hover { background: var(--x-peach); color: var(--x-bg); }
+      .x-head-cta { color: var(--x-peach-light, #ffb38a); font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; padding: 8px 2px; }
+      .x-head-cta span { display: inline-block; transition: transform .25s var(--ease-out); }
+      .x-head-cta:hover span { transform: translateX(4px); }
       .x-navlink { position: relative; }
       .x-navlink::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 8px; height: 2px; border-radius: 2px; background: var(--x-teal-bright); transform: scaleX(0); transition: transform .35s var(--ease-out); }
       .x-navlink.is-active { color: #fff; } .x-navlink.is-active::after { transform: scaleX(1); }
@@ -565,7 +566,8 @@
       .x-step:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
       .x-stepline__label { color: #fff; font: 600 13px/1.2 var(--sans); white-space: nowrap; min-width: 9ch; }
       .x-stepline__label b { color: #ffb38a; font-weight: 800; margin-right: 6px; }
-      @media (max-width: 520px) { .x-stepline { gap: 10px; padding: 8px 14px 8px 10px; } .x-stepline img { width: 22px; } .x-stepline__label { font-size: 12px; min-width: 0; } }
+      .x-stepline__label { flex: none; }
+      @media (max-width: 520px) { .x-stepline { gap: 12px; padding: 9px 16px 9px 16px; } .x-stepline img { display: none; } .x-stepline__track { gap: 16px; } .x-step { width: 14px; height: 14px; } .x-stepline__label { font-size: 12px; min-width: 0; } }
       @media (prefers-reduced-motion: reduce) { .x-stepline, .x-stepline__fill, .x-step { transition: none; } .x-step.is-now { animation: none; } }
     </style>
   </head>
@@ -619,7 +621,7 @@
         <nav aria-label="Main">
           <a class="x-navlink" href="#lesson-bar" data-spy="lessons">Lessons</a>
           <a class="x-navlink" href="#how" data-spy="how">How it works</a>
-          <a class="x-btn x-btn--sm x-btn--ghost x-head-cta" href="#lesson-1"><span class="x-long">Start lesson 1</span><span class="x-short-label">Lesson 1</span></a>
+          <a class="x-head-cta" href="#lesson-1">Start here <span aria-hidden="true">→</span></a>
         </nav>
       </header>
 
@@ -1366,7 +1368,7 @@
         const set = (i) => { if (i === cur) return; cur = i;
           steps.forEach((s, j) => { s.classList.toggle("is-done", j < i); s.classList.toggle("is-now", j === i); if (j === i) s.setAttribute("aria-current", "step"); else s.removeAttribute("aria-current"); });
           if (i >= 0) { label.innerHTML = `<b>${String(i + 1).padStart(2, "0")}</b>${names[i]}`;
-            const a = steps[0].offsetLeft + 9, b = steps[i].offsetLeft + 9; fill.style.width = (b - a) + "px"; } };
+            const h = steps[0].offsetWidth / 2, a = steps[0].offsetLeft + h, b = steps[i].offsetLeft + h; fill.style.left = a + "px"; fill.style.width = (b - a) + "px"; } };
         const tick = () => { const y = innerHeight * 0.5, top = targets[0].getBoundingClientRect().top, end = lessons.getBoundingClientRect().bottom;
           const on = top <= y && end > innerHeight * 0.6; el.classList.toggle("is-on", on); if (!on) return;
           let i = 0; targets.forEach((t, j) => { if (t.getBoundingClientRect().top <= y) i = j; }); set(i); };
