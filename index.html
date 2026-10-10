@@ -1368,7 +1368,7 @@
         const set = (i) => { if (i === cur) return; cur = i;
           steps.forEach((s, j) => { s.classList.toggle("is-done", j < i); s.classList.toggle("is-now", j === i); if (j === i) s.setAttribute("aria-current", "step"); else s.removeAttribute("aria-current"); });
           if (i >= 0) { label.innerHTML = `<b>${String(i + 1).padStart(2, "0")}</b>${names[i]}`;
-            const h = steps[0].offsetWidth / 2, a = steps[0].offsetLeft + h, b = steps[i].offsetLeft + h; fill.style.left = a + "px"; fill.style.width = (b - a) + "px"; } };
+            const h = steps[0].offsetWidth / 2, a = steps[0].offsetLeft + h, b = steps[i].offsetLeft + h; fill.style.left = a + "px"; fill.style.left = a + "px"; fill.style.width = (b - a) + "px"; } };
         const tick = () => { const y = innerHeight * 0.5, top = targets[0].getBoundingClientRect().top, end = lessons.getBoundingClientRect().bottom;
           const on = top <= y && end > innerHeight * 0.6; el.classList.toggle("is-on", on); if (!on) return;
           let i = 0; targets.forEach((t, j) => { if (t.getBoundingClientRect().top <= y) i = j; }); set(i); };
