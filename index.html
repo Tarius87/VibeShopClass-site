@@ -939,7 +939,7 @@
           </div>
           <div class="x-sec__head">
             <p class="x-eyebrow">How every lesson works</p>
-            <h2 class="x-h2" id="how-title">The same <span class="x-teal">lesson plan</span>, every time</h2>
+            <h2 class="x-h2" id="how-title">The same <span style="white-space:nowrap"><span class="x-teal">lesson plan</span>,</span> every time</h2>
           </div>
           <div class="x-plan-wrap">
             <ol class="x-plan" id="plan">
@@ -1173,7 +1173,7 @@
           centerTab(tabs[i]);
         }
         // the reading line sits a quarter of the screen below the header and bar
-        const lineY = () => headH + barH + Math.round(window.innerHeight * 0.25);
+        const lineY = () => Math.round(headH + barH + (window.innerHeight - headH - barH) * 0.5);
         function fromRects() {
           const y = lineY();
           let i = -1;
@@ -1184,7 +1184,7 @@
         }
         function watch() {
           if (io) io.disconnect();
-          if (!("IntersectionObserver" in window)) { window.addEventListener("scroll", fromRects, { passive: true }); return; }
+          let raf = 0; window.addEventListener("scroll", () => { if (Date.now() < lockUntil || raf) return; raf = requestAnimationFrame(() => { raf = 0; fromRects(); }); }, { passive: true }); return;
           const y = lineY();
           // a 1px band at the reading line: whichever lesson covers it is the active one
           io = new IntersectionObserver((entries) => {
