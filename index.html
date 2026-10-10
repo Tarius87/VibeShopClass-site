@@ -542,6 +542,31 @@
         .x-rv { opacity: 1; transform: none; transition: none; } .x-sparks, .x-cycle::after { display: none; }
         .x-video, .x-video > img { transition: none; transform: none !important; } .x-chapter path { stroke-dashoffset: 0; } .x-chapter__n { opacity: 1; transform: none; }
       }
+
+      /* ===== Lesson numbers + floating step line (replaces tab bar) ===== */
+      .x-lnum { font: 800 inherit; font-weight: 800; color: var(--x-peach-light); letter-spacing: .08em; }
+      .x-lesson__num::before { content: ""; width: 22px; height: 2px; background: var(--x-peach); border-radius: 2px; }
+      .x-lessonbar { display: none !important; }
+      .x-stepline { position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 40; transform: translate(-50%, 140%); opacity: 0;
+        transition: transform .5s var(--ease-out), opacity .4s ease; pointer-events: none;
+        display: flex; align-items: center; gap: 14px; padding: 10px 18px 10px 14px; border-radius: 999px;
+        background: rgb(22 58 64 / .92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+        border: 1px solid rgb(255 255 255 / .12); box-shadow: 0 12px 34px rgb(0 0 0 / .3); max-width: calc(100vw - 24px); }
+      .x-stepline.is-on { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+      .x-stepline img { width: 26px; height: auto; opacity: .85; flex: none; }
+      .x-stepline__track { position: relative; display: flex; align-items: center; gap: clamp(18px, 4vw, 34px); padding: 6px 2px; }
+      .x-stepline__track::before, .x-stepline__fill { content: ""; position: absolute; left: 9px; right: 9px; top: 50%; height: 2px; margin-top: -1px; background: rgb(255 255 255 / .2); border-radius: 2px; }
+      .x-stepline__fill { right: auto; width: 0; background: var(--x-teal-bright, #3ad1c5); transition: width .5s var(--ease-out); }
+      .x-step { position: relative; z-index: 1; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgb(255 255 255 / .4); background: #163a40; transition: background .3s, border-color .3s, transform .3s var(--ease-out); text-decoration: none; }
+      .x-step::after { content: ""; position: absolute; inset: -12px; }
+      .x-step.is-done { background: #3ad1c5; border-color: #3ad1c5; }
+      .x-step.is-now { background: #f4906b; border-color: #f4906b; transform: scale(1.25); box-shadow: 0 0 0 0 rgb(244 144 107 / .6); animation: x-ping 1.8s ease-out infinite; }
+      @keyframes x-ping { 70% { box-shadow: 0 0 0 10px rgb(244 144 107 / 0); } 100% { box-shadow: 0 0 0 0 rgb(244 144 107 / 0); } }
+      .x-step:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+      .x-stepline__label { color: #fff; font: 600 13px/1.2 var(--sans); white-space: nowrap; min-width: 9ch; }
+      .x-stepline__label b { color: #ffb38a; font-weight: 800; margin-right: 6px; }
+      @media (max-width: 520px) { .x-stepline { gap: 10px; padding: 8px 14px 8px 10px; } .x-stepline img { width: 22px; } .x-stepline__label { font-size: 12px; min-width: 0; } }
+      @media (prefers-reduced-motion: reduce) { .x-stepline, .x-stepline__fill, .x-step { transition: none; } .x-step.is-now { animation: none; } }
     </style>
   </head>
   <body>
@@ -802,7 +827,7 @@
           <div class="x-lessons">
             <article class="x-lesson" id="lesson-2" aria-labelledby="l2-title">
               <div class="x-lesson__head">
-                <p class="x-lesson__num">Lesson <span class="x-ring">02</span></p>
+                <p class="x-lesson__num">Lesson <b class="x-lnum">02</b></p>
                 <h3 id="l2-title">Build an iPhone app with Claude</h3>
                 <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:10</span></div>
               </div>
@@ -827,7 +852,7 @@
 
             <article class="x-lesson x-lesson--flip" id="lesson-3" aria-labelledby="l3-title">
               <div class="x-lesson__head">
-                <p class="x-lesson__num">Lesson <span class="x-ring">03</span></p>
+                <p class="x-lesson__num">Lesson <b class="x-lnum">03</b></p>
                 <h3 id="l3-title">Build a social app with Claude</h3>
                 <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:07</span></div>
               </div>
@@ -856,7 +881,7 @@
 
             <article class="x-lesson" id="lesson-4" aria-labelledby="l4-title">
               <div class="x-lesson__head">
-                <p class="x-lesson__num">Lesson <span class="x-ring">04</span></p>
+                <p class="x-lesson__num">Lesson <b class="x-lnum">04</b></p>
                 <h3 id="l4-title">Write a novel with Claude</h3>
                 <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:10</span></div>
               </div>
@@ -879,7 +904,7 @@
 
             <article class="x-lesson x-lesson--flip" id="lesson-5" aria-labelledby="l5-title">
               <div class="x-lesson__head">
-                <p class="x-lesson__num">Lesson <span class="x-ring">05</span></p>
+                <p class="x-lesson__num">Lesson <b class="x-lnum">05</b></p>
                 <h3 id="l5-title">Plan your projects with Claude</h3>
                 <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:04</span></div>
               </div>
@@ -901,7 +926,7 @@
 
             <article class="x-lesson" id="lesson-6" aria-labelledby="l6-title">
               <div class="x-lesson__head">
-                <p class="x-lesson__num">Lesson <span class="x-ring">06</span></p>
+                <p class="x-lesson__num">Lesson <b class="x-lnum">06</b></p>
                 <h3 id="l6-title">Launch a store with Claude</h3>
                 <div class="x-meta"><span class="x-status x-status--ready">Ready</span><span class="x-time">8:02</span></div>
               </div>
@@ -1322,6 +1347,31 @@
         // proof numbers count up
         document.querySelectorAll(".x-proof b").forEach((b) => { const end = parseInt(b.textContent, 10); if (!end || calm) return; b.textContent = "0";
           const o = new IntersectionObserver((es) => { if (!es[0].isIntersecting) return; o.disconnect(); let n = 0; const t = setInterval(() => { b.textContent = ++n; if (n >= end) clearInterval(t); }, 120); }); o.observe(b); });
+      })();
+    </script>
+
+    <script>
+      /* ===== Floating step line: the lesson you're reading, like the video ===== */
+      (function () {
+        const names = ["Website", "iPhone app", "Social app", "Novel", "Plan", "Store"];
+        const targets = names.map((_, i) => document.getElementById("lesson-" + (i + 1)));
+        if (targets.some((t) => !t)) return;
+        const lessons = document.getElementById("lessons");
+        const el = document.createElement("nav"); el.className = "x-stepline"; el.setAttribute("aria-label", "Season 1 lessons");
+        el.innerHTML = '<img src="vsc-icon.png" alt="" width="26" height="25"><div class="x-stepline__track"><span class="x-stepline__fill"></span>' +
+          names.map((n, i) => `<a class="x-step" href="#lesson-${i + 1}" aria-label="Lesson ${i + 1}: ${n}"></a>`).join("") + '</div><span class="x-stepline__label" aria-live="polite"></span>';
+        document.body.appendChild(el);
+        const steps = [...el.querySelectorAll(".x-step")], fill = el.querySelector(".x-stepline__fill"), label = el.querySelector(".x-stepline__label");
+        let cur = -2;
+        const set = (i) => { if (i === cur) return; cur = i;
+          steps.forEach((s, j) => { s.classList.toggle("is-done", j < i); s.classList.toggle("is-now", j === i); if (j === i) s.setAttribute("aria-current", "step"); else s.removeAttribute("aria-current"); });
+          if (i >= 0) { label.innerHTML = `<b>${String(i + 1).padStart(2, "0")}</b>${names[i]}`;
+            const a = steps[0].offsetLeft + 9, b = steps[i].offsetLeft + 9; fill.style.width = (b - a) + "px"; } };
+        const tick = () => { const y = innerHeight * 0.5, top = targets[0].getBoundingClientRect().top, end = lessons.getBoundingClientRect().bottom;
+          const on = top <= y && end > innerHeight * 0.6; el.classList.toggle("is-on", on); if (!on) return;
+          let i = 0; targets.forEach((t, j) => { if (t.getBoundingClientRect().top <= y) i = j; }); set(i); };
+        steps.forEach((s, i) => s.addEventListener("click", (e) => { e.preventDefault(); targets[i].scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }));
+        let raf = 0; addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; tick(); }); }, { passive: true }); addEventListener("resize", tick); tick();
       })();
     </script>
   </body>
