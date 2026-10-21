@@ -741,16 +741,26 @@
           <div class="x-shorts">
             <h3 class="x-shorts__title">Quick hits from Lesson 1</h3>
             <ul class="x-shorts__row">
-              <li class="x-short" data-short="s1" data-label="Short: Name it + grab the domain">
-                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Name it + grab the domain</p><p class="x-short__soon">Short coming soon</p></div>
+              <li class="x-short" data-short="s1" data-out="1792684800000" data-label="Short: I built this website in minutes. Zero code.">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">I built this website in minutes. Zero code.</p><p class="x-short__soon">Out Thu, Oct 22</p></div>
               </li>
-              <li class="x-short" data-short="s2" data-label="Short: Design it in plain words">
-                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Design it in plain words</p><p class="x-short__soon">Short coming soon</p></div>
+              <li class="x-short" data-short="s2" data-out="1792857600000" data-label="Short: This site went live in seconds. Hosting: $0">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">This site went live in seconds. Hosting: $0</p><p class="x-short__soon">Out Sat, Oct 24</p></div>
               </li>
-              <li class="x-short" data-short="s3" data-label="Short: Put it online for free">
-                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Put it online for free</p><p class="x-short__soon">Short coming soon</p></div>
+              <li class="x-short" data-short="s3" data-out="1793030400000" data-label="Short: Stuck on any website? Do this.">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Stuck on any website? Do this.</p><p class="x-short__soon">Out Mon, Oct 26</p></div>
+              </li>
+              <li class="x-short" data-short="s4" data-out="1793203200000" data-label="Short: She built this website in one evening">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">She built this website in one evening</p><p class="x-short__soon">Out Wed, Oct 28</p></div>
+              </li>
+              <li class="x-short" data-short="s5" data-out="1793376000000" data-label="Short: One Google Drive folder, every AI">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">One Google Drive folder, every AI</p><p class="x-short__soon">Out Fri, Oct 30</p></div>
+              </li>
+              <li class="x-short" data-short="s6" data-out="1793552400000" data-label="Short: Site looks off on phones? Just say so">
+                <div class="x-short__ph"><svg aria-hidden="true"><use href="#x-circ-tall" /></svg><p class="x-short__tag">Short</p><p class="x-short__title">Site looks off on phones? Just say so</p><p class="x-short__soon">Out Sun, Nov 1</p></div>
               </li>
             </ul>
+            <p class="x-next"><a href="https://www.youtube.com/@vibeshopclass/shorts" target="_blank" rel="noopener">More Shorts on YouTube →</a></p>
           </div>
         </section>
 
@@ -794,6 +804,7 @@
                 <a class="x-btn" id="watch-ep1" href="https://www.youtube.com/@vibeshopclass" target="_blank" rel="noopener"
                   ><svg width="16" height="16" aria-hidden="true"><use href="#x-play-ico" /></svg>Watch Lesson 1</a
                 >
+                <a class="x-btn x-btn--ghost" href="https://www.youtube.com/@vibeshopclass?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
               </div>
               <p class="x-next">Then come back for Lesson 2, where the same skills become an iPhone app.</p>
             </div>
@@ -1023,10 +1034,9 @@
     <script src="hark.js"></script>
     <script>
       /* ===== Paste YouTube IDs here (the part after watch?v= or /shorts/). Leave "" until a video is live. ===== */
-      const VIDEOS = { ep1: "", ep2: "", ep3: "", ep4: "", ep5: "", ep6: "" };
-      const SHORTS = { s1: "", s2: "", s3: "", s4: "", s5: "", s6: "", s7: "", s8: "", s9: "" };
-      /* s1–s3 fill the "Quick hits from Lesson 1" row. s4–s9 are not on the page right now (their rows were
-         removed for a calmer layout); they are kept here so the IDs are ready if those rows come back. */
+      const VIDEOS = { ep1: "Orm5WmaQtLQ", ep2: "", ep3: "", ep4: "", ep5: "", ep6: "" };
+      const SHORTS = { s1: "lT0iCHMU_bA", s2: "GoR5XJiq2l8", s3: "PgdSOtP3zTw", s4: "CbW_zuwvopE", s5: "ErY8XG_sIT4", s6: "zyGhwOygGlg" };
+      /* s1–s6 are Lesson 1's Shorts. Each card turns on at its data-out time (11 AM Central on its release day). */
       const CHANNEL_URL = "https://www.youtube.com/@vibeshopclass";
       const SUBSCRIBE_URL = "https://mpdxxfwgrgevsbkuehcp.supabase.co/rest/v1/rpc/vsc_subscribe";
       const SUPABASE_KEY = "sb_publishable_I8b3ETq7AyHfuU0mkMBOmw_so7-Jl50";
@@ -1064,7 +1074,7 @@
         }
 
         document.querySelectorAll("[data-video]").forEach((s) => arm(s, clean(VIDEOS[s.dataset.video]), 28, false));
-        document.querySelectorAll("[data-short]").forEach((s) => arm(s, clean(SHORTS[s.dataset.short]), 22, true));
+        document.querySelectorAll("[data-short]").forEach((s) => { const out = Number(s.dataset.out) || 0; if (Date.now() >= out) arm(s, clean(SHORTS[s.dataset.short]), 22, true); });
 
         document.querySelectorAll("[data-channel]").forEach((a) => (a.href = CHANNEL_URL));
 
