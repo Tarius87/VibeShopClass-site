@@ -1,0 +1,17 @@
+name: Keep Supabase awake
+on:
+  schedule:
+    - cron: "17 14 * * *"   # daily, ~9:17 AM CT
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query the Vibe Shop Class database
+        run: |
+          code=$(curl -s -o out.txt -w "%{http_code}" \
+            "https://mpdxxfwgrgevsbkuehcp.supabase.co/rest/v1/vsc_subscribers?select=id&limit=1" \
+            -H "apikey: sb_publishable_I8b3ETq7AyHfuU0mkMBOmw_so7-Jl50")
+          cat out.txt; echo; echo "HTTP $code"
+          # 200 or a Postgres permission error (401/42501) both mean the database answered.
+          grep -q '42501\|\[' out.txt
