@@ -2,16 +2,19 @@ name: Keep Supabase awake
 on:
   schedule:
     - cron: "17 14 * * *"   # daily, ~9:17 AM CT
+    - cron: "47 2 * * *"    # daily, ~9:47 PM CT (backup run)
   workflow_dispatch:
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Query the Vibe Shop Class database
+      - name: Write a heartbeat row in the Vibe Shop Class database
         run: |
-          code=$(curl -s -o out.txt -w "%{http_code}" \
-            "https://mpdxxfwgrgevsbkuehcp.supabase.co/rest/v1/vsc_subscribers?select=id&limit=1" \
-            -H "apikey: sb_publishable_I8b3ETq7AyHfuU0mkMBOmw_so7-Jl50")
+          # A rejected request (401/permission denied) does not count as activity,
+          # so call an RPC that really writes to Postgres and require a 200.
+          code=$(curl -s -o out.txt -w "%{http_code}" -X POST \
+            "https://mpdxxfwgrgevsbkuehcp.supabase.co/rest/v1/rpc/vsc_keepalive" \
+            -H "apikey: sb_publishable_I8b3ETq7AyHfuU0mkMBOmw_so7-Jl50" \
+            -H "Content-Type: application/json" -d '{}')
           cat out.txt; echo; echo "HTTP $code"
-          # 200 or a Postgres permission error (401/42501) both mean the database answered.
-          grep -q '42501\|\[' out.txt
+          test "$code" = "200"
