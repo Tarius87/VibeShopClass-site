@@ -1,0 +1,26 @@
+name: Sync YouTube videos
+on:
+  schedule:
+    - cron: "5,25,45 16,17,18 * * *"   # around the usual 11 AM Central drop time
+    - cron: "15 3 * * *"               # nightly catch-up
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: sync-youtube
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fill in new lesson and Short IDs from the channel feed
+        run: node tools/sync-youtube.mjs
+      - name: Publish if anything changed
+        run: |
+          git diff --quiet && { echo "No changes."; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Sync new YouTube videos"
+          git push
