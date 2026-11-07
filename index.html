@@ -589,29 +589,53 @@
     <svg class="wire is-hidden" id="wire" aria-hidden="true"><path class="wire__line" pathLength="100" /><path class="wire__sig" pathLength="100" /><circle class="wire__a" r="5" /><circle class="wire__b" r="5" /></svg>
 
     <script>
-      /* ===== Paste YouTube IDs here (the part after watch?v= or /shorts/). Leave "" until a video is live. ===== */
-      const VIDEOS = { ep1: "Orm5WmaQtLQ", ep2: "pWtZmtE8p88", ep3: "", ep4: "", ep5: "", ep6: "" };
-      /* Shorts: shown newest lesson first. "out" is the drop time (UTC). A Short with an id plays on the page;
-         one without an id shows its drop date. tools/sync-youtube.mjs fills in ids from the channel feed. */
+      /* ===== YouTube IDs. A video turns on by itself at its RELEASES time, so scheduled (still private) uploads can go in early.
+         Source: the "Vibe Shop Class — Season 1 drop schedule" sheet in Google Drive. ===== */
+      const VIDEOS = { ep1: "Orm5WmaQtLQ", ep2: "pWtZmtE8p88", ep3: "nFn0K02lyAM", ep4: "qJs8sBghp0c", ep5: "", ep6: "" };
+      /* Shorts, from the same Drive sheet. "out" is the drop time (UTC). Before it, the card shows the date;
+         after it, the card plays. tools/sync-youtube.mjs fills in ids for Shorts uploaded later. */
       /* SHORTS-START */
       const SHORTS = [
-        { "lesson": 1, "id": "lT0iCHMU_bA", "out": "2026-10-22T16:00:00Z", "title": "I built this website in minutes. Zero code." },
-        { "lesson": 1, "id": "GoR5XJiq2l8", "out": "2026-10-24T16:00:00Z", "title": "This site went live in seconds. Hosting: $0" },
-        { "lesson": 1, "id": "PgdSOtP3zTw", "out": "2026-10-26T16:00:00Z", "title": "Stuck on any website? Do this." },
-        { "lesson": 1, "id": "CbW_zuwvopE", "out": "2026-10-28T16:00:00Z", "title": "She built this website in one evening" },
-        { "lesson": 1, "id": "ErY8XG_sIT4", "out": "2026-10-30T16:00:00Z", "title": "One Google Drive folder, every AI" },
+        { "lesson": 1, "id": "lT0iCHMU_bA", "out": "2026-10-22T16:00:00Z", "title": "I built this site in minutes, zero code" },
+        { "lesson": 1, "id": "GoR5XJiq2l8", "out": "2026-10-24T16:00:00Z", "title": "This site went live in seconds, hosting $0" },
+        { "lesson": 1, "id": "PgdSOtP3zTw", "out": "2026-10-26T16:00:00Z", "title": "Stuck on any website? Do this" },
+        { "lesson": 1, "id": "CbW_zuwvopE", "out": "2026-10-28T16:00:00Z", "title": "She built this site in one evening" },
+        { "lesson": 1, "id": "ErY8XG_sIT4", "out": "2026-10-30T16:00:00Z", "title": "Your files, in every AI, one folder" },
         { "lesson": 1, "id": "zyGhwOygGlg", "out": "2026-11-01T17:00:00Z", "title": "Site looks off on phones? Just say so" },
-        { "lesson": 2, "id": "eoMIaSpdOeg", "out": "2026-11-05T17:00:00Z", "title": "I built this iPhone app with AI. Zero code." },
-        { "lesson": 2, "id": "", "out": "2026-11-07T17:00:00Z", "title": "" },
-        { "lesson": 2, "id": "", "out": "2026-11-09T17:00:00Z", "title": "" },
-        { "lesson": 2, "id": "", "out": "2026-11-11T17:00:00Z", "title": "" },
-        { "lesson": 2, "id": "", "out": "2026-11-13T17:00:00Z", "title": "" },
-        { "lesson": 2, "id": "", "out": "2026-11-15T17:00:00Z", "title": "" }
+        { "lesson": 2, "id": "eoMIaSpdOeg", "out": "2026-11-05T17:00:00Z", "title": "I built this iPhone app with AI, zero code" },
+        { "lesson": 2, "id": "oob4XUXetZs", "out": "2026-11-07T17:00:00Z", "title": "Your app on your phone in one command" },
+        { "lesson": 2, "id": "vlWM3RP7NI8", "out": "2026-11-09T17:00:00Z", "title": "Never paste this key" },
+        { "lesson": 2, "id": "_Qa1m5-KT-k", "out": "2026-11-11T17:00:00Z", "title": "Test your app with friends, no Xcode" },
+        { "lesson": 2, "id": "V2rqulL1ZDQ", "out": "2026-11-13T17:00:00Z", "title": "App crashed? Send a screenshot" },
+        { "lesson": 2, "id": "e0M_dkw87s0", "out": "2026-11-15T17:00:00Z", "title": "The reminder flopped, one line fixed it" },
+        { "lesson": 3, "id": "FQtCsiP_ahA", "out": "2026-11-19T17:00:00Z", "title": "iPhone + web, one project" },
+        { "lesson": 3, "id": "jkPBMrhAcdg", "out": "2026-11-21T17:00:00Z", "title": "Test with two accounts" },
+        { "lesson": 3, "id": "GlcIdxfP2vs", "out": "2026-11-23T17:00:00Z", "title": "Apple requires these safety tools" },
+        { "lesson": 3, "id": "GyUWuXjWBEI", "out": "2026-11-25T17:00:00Z", "title": "Which key is safe to paste" },
+        { "lesson": 3, "id": "0Fd1n-1ALws", "out": "2026-11-27T17:00:00Z", "title": "Nobody joins an empty room" },
+        { "lesson": 3, "id": "mhg5a3b7N-g", "out": "2026-11-29T17:00:00Z", "title": "Questions get 4x the comments" },
+        { "lesson": 4, "id": "", "out": "2026-12-03T17:00:00Z", "title": "AI gives notes, you write the book" },
+        { "lesson": 4, "id": "", "out": "2026-12-05T17:00:00Z", "title": "Claude remembers your whole book" },
+        { "lesson": 4, "id": "", "out": "2026-12-07T17:00:00Z", "title": "Find a plot hole in seconds" },
+        { "lesson": 4, "id": "", "out": "2026-12-09T17:00:00Z", "title": "Does the middle of your book drag?" },
+        { "lesson": 4, "id": "", "out": "2026-12-11T17:00:00Z", "title": "Publishing on Amazon: 2 mistakes to skip" },
+        { "lesson": 4, "id": "", "out": "2026-12-13T17:00:00Z", "title": "Start your novel with the world" },
+        { "lesson": 5, "id": "", "out": "2026-12-17T17:00:00Z", "title": "3 projects, 1 plan, every date booked" },
+        { "lesson": 5, "id": "", "out": "2026-12-19T17:00:00Z", "title": "Juggling 3 projects? Use gates" },
+        { "lesson": 5, "id": "", "out": "2026-12-21T17:00:00Z", "title": "Your budget forgot the monthly bills" },
+        { "lesson": 5, "id": "", "out": "2026-12-23T17:00:00Z", "title": "Every deadline, on my calendar" },
+        { "lesson": 5, "id": "", "out": "2026-12-25T17:00:00Z", "title": "My project plan is now a 3D page" },
+        { "lesson": 5, "id": "", "out": "2026-12-27T17:00:00Z", "title": "Lost a whole week? One line fixes the plan" },
+        { "lesson": 6, "id": "", "out": "2026-12-31T17:00:00Z", "title": "I launched a shirt store, no stock" },
+        { "lesson": 6, "id": "", "out": "2027-01-02T17:00:00Z", "title": "Naming your brand? Check this first" },
+        { "lesson": 6, "id": "", "out": "2027-01-04T17:00:00Z", "title": "2 mistakes that sink a T-shirt brand" },
+        { "lesson": 6, "id": "", "out": "2027-01-06T17:00:00Z", "title": "Each shirt makes $9.50, here's the sheet" },
+        { "lesson": 6, "id": "", "out": "2027-01-08T17:00:00Z", "title": "Your next design? Ask this" },
+        { "lesson": 6, "id": "", "out": "2027-01-10T17:00:00Z", "title": "They asked for hoodies, live by afternoon" }
       ];
       /* SHORTS-END */
-      /* ===== Premiere date and time for each lesson, e.g. "2026-11-11T11:00-06:00" (11 AM Central). Leave "" if unknown.
-         After changing a date, run `node tools/make-calendars.mjs` to rebuild the Apple Calendar files in cal/. ===== */
-      const RELEASES = { ep2: "", ep3: "", ep4: "", ep5: "", ep6: "" };
+      /* ===== Premiere times (UTC; all 11:00 AM Central). After changing one, run `node tools/make-calendars.mjs`. ===== */
+      const RELEASES = { ep1: "2026-10-20T16:00:00Z", ep2: "2026-11-03T17:00:00Z", ep3: "2026-11-17T17:00:00Z", ep4: "2026-12-01T17:00:00Z", ep5: "2026-12-15T17:00:00Z", ep6: "2026-12-29T17:00:00Z" };
       const CHANNEL_URL = "https://www.youtube.com/@vibeshopclass";
       const SUBSCRIBE_URL = "https://mpdxxfwgrgevsbkuehcp.supabase.co/rest/v1/rpc/vsc_subscribe";
       const SUPABASE_KEY = "sb_publishable_I8b3ETq7AyHfuU0mkMBOmw_so7-Jl50";
@@ -653,7 +677,8 @@
         const SITE = "https://vibeshopclass.com/";
         const enc = encodeURIComponent;
         const when = (vid) => { const d = new Date(RELEASES[vid] || ""); return isNaN(d) ? null : d; };
-        const upcomingDate = (vid) => { const d = when(vid); return !clean(VIDEOS[vid]) && d && d > Date.now() ? d : null; };
+        const upcomingDate = (vid) => { const d = when(vid); return d && d > Date.now() ? d : null; };
+        const liveId = (vid) => (upcomingDate(vid) ? "" : clean(VIDEOS[vid]));
         const fmtDay = (d) => d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
         const fmtShort = (d) => d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
         const fmtFull = (d) => fmtDay(d) + ", " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
@@ -761,21 +786,24 @@
           slot.appendChild(b);
           slot._play = () => play(slot, id);
         }
-        const armVideos = (root) => root.querySelectorAll("[data-video]").forEach((s) => arm(s, clean(VIDEOS[s.dataset.video]), 28, false));
+        const armVideos = (root) => root.querySelectorAll("[data-video]").forEach((s) => arm(s, liveId(s.dataset.video), 28, false));
         armVideos(document);
 
         /* ---------- Shorts: cards open a big vertical player; upcoming ones show their drop date ---------- */
         const shortsEl = document.getElementById("shorts"), player = document.getElementById("player"), playerFrame = document.getElementById("player-frame");
-        const byLesson = [...SHORTS].sort((a, b) => b.lesson - a.lesson || new Date(a.out) - new Date(b.out));
+        const byLesson = [...SHORTS].sort((a, b) => new Date(a.out) - new Date(b.out));
         const dropText = (d) => fmtDay(d) + "<br />" + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
         shortsEl.innerHTML = byLesson.map((sh, k) => {
           const id = clean(sh.id), d = new Date(sh.out), out = !isNaN(d) && Date.now() >= +d;
           const tag = '<p class="short__tag">Lesson ' + sh.lesson + " · Short</p>";
           const title = sh.title ? '<p class="short__title">' + esc(sh.title) + "</p>" : '<p class="short__title">New Short from Lesson ' + sh.lesson + "</p>";
-          if (id) return '<li><button type="button" class="short short--live cut-1" data-play-short="' + k + '" aria-label="Play Short: ' + esc(sh.title || "Lesson " + sh.lesson) + '"><img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()" /><span class="play" aria-hidden="true"><svg width="20" height="20"><use href="#ico-play" /></svg></span><div class="short__ph">' + tag + title + '<p class="short__soon">Watch the Short</p></div></button></li>';
-          if (out) return '<li><a class="short cut-1" href="https://www.youtube.com/@vibeshopclass/shorts" target="_blank" rel="noopener"><div class="short__ph">' + tag + title + '<p class="short__soon">Out now on YouTube →</p></div></a></li>';
+          if (id && out) return '<li><button type="button" class="short short--live cut-1" data-play-short="' + k + '" aria-label="Play Short: ' + esc(sh.title || "Lesson " + sh.lesson) + '"><img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()" /><span class="play" aria-hidden="true"><svg width="20" height="20"><use href="#ico-play" /></svg></span><div class="short__ph">' + tag + title + '<p class="short__soon">Watch the Short</p></div></button></li>';
+          if (out && !isNaN(d)) return '<li><a class="short cut-1" href="https://www.youtube.com/@vibeshopclass/shorts" target="_blank" rel="noopener"><div class="short__ph">' + tag + title + '<p class="short__soon">Out now on YouTube →</p></div></a></li>';
           return '<li><div class="short cut-1"><div class="short__ph">' + tag + title + '<p class="short__soon">' + (isNaN(d) ? "Coming soon" : "<b>Out " + dropText(d) + "</b>") + "</p></div></div></li>";
         }).join("");
+        const lastOut = byLesson.reduce((m, sh, k) => (Date.now() >= +new Date(sh.out) ? k : m), 0);
+        const startRow = () => { const li = shortsEl.children[lastOut]; if (li) shortsEl.scrollLeft = li.offsetLeft - shortsEl.firstElementChild.offsetLeft; };
+        requestAnimationFrame(startRow); addEventListener("load", startRow);
         function closePlayer() { playerFrame.replaceChildren(); if (player.open) player.close(); }
         shortsEl.addEventListener("click", (e) => {
           const b = e.target.closest("[data-play-short]"); if (!b) return;
@@ -793,7 +821,7 @@
         player.addEventListener("close", () => playerFrame.replaceChildren());
         const stopVideos = (root) => root.querySelectorAll("iframe").forEach((f) => {
           const slot = f.parentElement, key = slot.dataset.video;
-          if (key) { slot.innerHTML = '<img src="thumb_' + key + '.jpg" alt="" width="1280" height="720" />'; arm(slot, clean(VIDEOS[key]), 28, false); }
+          if (key) { slot.innerHTML = '<img src="thumb_' + key + '.jpg" alt="" width="1280" height="720" />'; arm(slot, liveId(key), 28, false); }
         });
 
         /* ---------- lesson picker on a data bus ---------- */
@@ -808,7 +836,7 @@
           picks.forEach((p) => { const on = +p.dataset.lesson === n; p.setAttribute("aria-selected", on); p.tabIndex = on ? 0 : -1; });
           lessonEl.setAttribute("aria-labelledby", "pick-" + n);
           const kit = l.kit ? '<ul class="kit cut-1" aria-label="Your kit">' + l.kit.map((k) => "<li><span>" + esc(k[0]) + (k[1] ? " <small>" + esc(k[1]) + "</small>" : "") + '</span><span class="price">' + esc(k[2]) + "</span></li>").join("") + (l.total ? '<li class="total"><span>To start</span><span class="price">' + l.total + "</span></li>" : "") + "</ul>" : "";
-          const id = clean(VIDEOS[l.vid]), d = upcomingDate(l.vid), aired = !id && when(l.vid) && !d;
+          const id = liveId(l.vid), d = upcomingDate(l.vid), aired = !id && when(l.vid) && !d;
           const soonText = d ? "Premieres " + fmtFull(d) : aired ? "Premiering now on YouTube" : "Premieres soon on YouTube";
           lessonEl.innerHTML =
             '<div class="frame"><div class="video" data-video="' + l.vid + '" data-label="Lesson ' + n + ": " + esc(l.title) + '"><img src="thumb_' + l.vid + '.jpg" alt="Lesson ' + n + " thumbnail: " + esc(l.title) + '" width="1280" height="720" />' +

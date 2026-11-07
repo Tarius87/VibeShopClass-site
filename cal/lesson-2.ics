@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vibe Shop Class//Lessons//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lesson-2@vibeshopclass.com
+DTSTAMP:20261107T155333Z
+DTSTART:20261103T170000Z
+DTEND:20261103T173000Z
+SUMMARY:Vibe Shop Class Lesson 2: Build an iPhone app with Claude
+DESCRIPTION:Lesson 2 premieres on YouTube. Meet Sprout\, a real iPhone app 
+ with accounts\, saved data and reminders. You'll design it\, build it with
+  Expo and Supabase\, run it on your own phone and get it ready for the App
+  Store.\n\nWatch: https://www.youtube.com/@vibeshopclass\nLesson page: htt
+ ps://vibeshopclass.com/#lessons-2
+LOCATION:https://www.youtube.com/@vibeshopclass
+URL:https://vibeshopclass.com/#lessons-2
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lesson 2 premieres in 15 minutes
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

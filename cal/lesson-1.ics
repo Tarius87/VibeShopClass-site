@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vibe Shop Class//Lessons//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lesson-1@vibeshopclass.com
+DTSTAMP:20261107T155333Z
+DTSTART:20261020T160000Z
+DTEND:20261020T163000Z
+SUMMARY:Vibe Shop Class Lesson 1: Build a website with Claude
+DESCRIPTION:Lesson 1 premieres on YouTube. A real website for a bakery\, li
+ ve on its own web address. It costs nothing to host\, and no one wrote a l
+ ine of code by hand. In eight steps you'll name your site\, design it by d
+ escribing it\, build it with Claude\, put it online with Netlify and conne
+ ct your own domain.\n\nWatch: https://www.youtube.com/@vibeshopclass\nLess
+ on page: https://vibeshopclass.com/#lessons-1
+LOCATION:https://www.youtube.com/@vibeshopclass
+URL:https://vibeshopclass.com/#lessons-1
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lesson 1 premieres in 15 minutes
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vibe Shop Class//Lessons//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lesson-3@vibeshopclass.com
+DTSTAMP:20261107T155333Z
+DTSTART:20261117T170000Z
+DTEND:20261117T173000Z
+SUMMARY:Vibe Shop Class Lesson 3: Build a social app with Claude
+DESCRIPTION:Lesson 3 premieres on YouTube. Trailmates is a social network f
+ or a hiking club\, with profiles\, photos\, likes and comments\, running o
+ n iPhone and the web from one project.\n\nWatch: https://www.youtube.com/@
+ vibeshopclass\nLesson page: https://vibeshopclass.com/#lessons-3
+LOCATION:https://www.youtube.com/@vibeshopclass
+URL:https://vibeshopclass.com/#lessons-3
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lesson 3 premieres in 15 minutes
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

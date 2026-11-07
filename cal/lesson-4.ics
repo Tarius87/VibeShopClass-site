@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vibe Shop Class//Lessons//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lesson-4@vibeshopclass.com
+DTSTAMP:20261107T155333Z
+DTSTART:20261201T170000Z
+DTEND:20261201T173000Z
+SUMMARY:Vibe Shop Class Lesson 4: Write a novel with Claude
+DESCRIPTION:Lesson 4 premieres on YouTube. A world\, a plot\, a first chapt
+ er\, a cover and a plan to publish\, built with AI as a partner. The story
+  stays yours\; Claude keeps the whole book straight.\n\nWatch: https://www
+ .youtube.com/@vibeshopclass\nLesson page: https://vibeshopclass.com/#lesso
+ ns-4
+LOCATION:https://www.youtube.com/@vibeshopclass
+URL:https://vibeshopclass.com/#lessons-4
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lesson 4 premieres in 15 minutes
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vibe Shop Class//Lessons//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lesson-6@vibeshopclass.com
+DTSTAMP:20261107T155333Z
+DTSTART:20261229T170000Z
+DTEND:20261229T173000Z
+SUMMARY:Vibe Shop Class Lesson 6: Launch a store with Claude
+DESCRIPTION:Lesson 6 premieres on YouTube. A T-shirt brand with its own sto
+ re and no stock in a garage: each shirt is printed when someone orders it.
+  You'll name the brand\, design the shirts\, open the store and connect yo
+ ur domain.\n\nWatch: https://www.youtube.com/@vibeshopclass\nLesson page: 
+ https://vibeshopclass.com/#lessons-6
+LOCATION:https://www.youtube.com/@vibeshopclass
+URL:https://vibeshopclass.com/#lessons-6
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lesson 6 premieres in 15 minutes
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

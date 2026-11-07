@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vibe Shop Class//Lessons//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lesson-5@vibeshopclass.com
+DTSTAMP:20261107T155333Z
+DTSTART:20261215T170000Z
+DTEND:20261215T173000Z
+SUMMARY:Vibe Shop Class Lesson 5: Plan your projects with Claude
+DESCRIPTION:Lesson 5 premieres on YouTube. Three projects\, one plan: every
+  step\, every cost and every decision date\, already on your calendar. Con
+ nect Drive\, Gmail and Calendar and Claude builds the plan from files it f
+ inds on its own.\n\nWatch: https://www.youtube.com/@vibeshopclass\nLesson 
+ page: https://vibeshopclass.com/#lessons-5
+LOCATION:https://www.youtube.com/@vibeshopclass
+URL:https://vibeshopclass.com/#lessons-5
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lesson 5 premieres in 15 minutes
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
